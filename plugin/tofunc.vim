@@ -39,9 +39,6 @@
 "
 " BUGS: In visual mode, the previous selection will be forgotten
 "       and will be replaced by new selection with this text object.
-"
-" BUGS: If the cursor is out of any functions,
-"       these text objects will select the next function after the cursor.
 
 if exists('g:loaded_TOFunc')
   finish
