@@ -1,4 +1,4 @@
-" tofunc - Text object for a function.
+" TOFunc - Text object for a function.
 " Author: kana <http://nicht.s8.xrea.com/>
 " License: MIT license (see <http://www.opensource.org/licenses/mit-license>)
 " $Id$
