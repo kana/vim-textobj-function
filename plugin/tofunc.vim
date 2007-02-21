@@ -5,40 +5,34 @@
 " MANUAL  "{{{1
 " =============
 "
-" To enable text object for a function,
-" the buffer-local variable b:TOFunc must be defined.
-" b:TOFunc is a dictionary with the following entries.
+" TOFunc provides the following text objects:
 "
-" b:TOFunc.AfterP
-"     Funcref to a function that
-"     takes a string of the current line
-"     and returns true if the given line is the next line of the body of a
-"     function.
+"                                                       *v_af* *af*
+" af                    ``a function'', select the all range of a function.
 "
-" b:TOFunc.MoveBefore
-"     Funcref to a function that
-"     moves the cursor to the previous line of the body of a function.
+"                                                       *v_if* *if*
+" if                    ``inner function'', select the body of a function,
+"                       but other parts of a function are not included
+"                       (e.g. its name, its arguments and so forth).
 "
-" b:TOFunc.MoveAfter
-"     Funcref to a function that
-"     moves the cursor to the next line of the body of a function.
 "
-" b:TOFunc.EndP
-"     Like AfterP of TextObject_Function_Inner,
-"     but returns true if the given line is the end line of a function.
+" TOFunc uses the following functions to get the appropriate range of a
+" function for the current 'filetype':
 "
-" b:TOFunc.MoveBeginning
-"     Like MoveBefore of TextObject_Function_Inner,
-"     but move the cursor to the beginning line of a function.
+" g:TOFunc[&filetye].GetRangeI()                        *GetRangeI()*
+"                       Returns the range of ``inner function''.
+"                       The return value is [b, e], where b is the beginning
+"                       position and e is the end position of the range.
+"                       The detail of both values are same as |getpos()|. If
+"                       there is no appropriate function, this function must
+"                       return 0.
 "
-" b:TOFunc.MoveEnd
-"     Like MoveAfter of TextObject_Function_Inner,
-"     but move the cursor to the end line of a function.
+"                       Moving the cursor is allowed, but it is restored
+"                       afterwards.
 "
-" BUGS: Visual mode will be linewise after these text objects.
-"
-" BUGS: In visual mode, the previous selection will be forgotten
-"       and will be replaced by new selection with this text object.
+" g:TOFunc[&filetye].GetRangeA()                        *GetRangeA()*
+"                       Like |GetRangeI()|,
+"                       but returns the range of ``a function''.
 
 if exists('g:loaded_TOFunc')
   finish
@@ -49,47 +43,56 @@ endif
 
 " KEY MAPPINGS  "{{{1
 
-noremap <script> <Plug>TOFunc_Inner  <SID>TOFunc_Inner
-noremap <script> <Plug>TOFunc_All  <SID>TOFunc_All
+noremap <silent> <Plug>TOFunc_AO  :<C-u>call <SID>TOFunc_A('o')<Return>
+noremap <silent> <Plug>TOFunc_AV  :<C-u>call <SID>TOFunc_A('v')<Return>
+noremap <silent> <Plug>TOFunc_IO  :<C-u>call <SID>TOFunc_I('o')<Return>
+noremap <silent> <Plug>TOFunc_IV  :<C-u>call <SID>TOFunc_I('v')<Return>
 
-noremap <silent> <SID>TOFunc_Inner  :<C-u>call <SID>TOFunc_Inner()<Return>
-noremap <silent> <SID>TOFunc_All  :<C-u>call <SID>TOFunc_All()<Return>
 
-if !hasmapto('<Plug>TOFunc_Inner')
-  silent! vmap <unique> if  <Plug>TOFunc_Inner
-  silent! omap <unique> if  <Plug>TOFunc_Inner
-endif
-if !hasmapto('<Plug>TOFunc_All')
-  silent! vmap <unique> af  <Plug>TOFunc_All
-  silent! omap <unique> af  <Plug>TOFunc_All
-endif
+function! s:SafeMap(mode, lhs, rhs)
+  if !hasmapto(a:rhs)
+    execute 'silent!' a:mode '<unique>' a:lhs a:rhs
+  endif
+endfunction
+call s:SafeMap('omap', 'af', '<Plug>TOFunc_AO')
+call s:SafeMap('vmap', 'af', '<Plug>TOFunc_AV')
+call s:SafeMap('omap', 'if', '<Plug>TOFunc_IO')
+call s:SafeMap('vmap', 'if', '<Plug>TOFunc_IV')
+delfunction s:SafeMap
 
 
 
 
 " FUNCTIONS  "{{{1
 
-function! s:TOFunc_Inner()
-  if !exists('b:TOFunc')
-    throw "Text object ``inner function'' is not available for this buffer."
+let g:TOFunc = {}
+
+
+function! s:TOFunc_A(mode)
+  return s:SelectOrNop('GetRangeA', a:mode)
+endfunction
+
+function! s:TOFunc_I(mode)
+  return s:SelectOrNop('GetRangeI', a:mode)
+endfunction
+
+
+" Abbreviations: B for the beginning position, E for the end position.
+function! s:SelectOrNop(funcname, mode)
+  if !exists('g:TOFunc[&filetype]')
+    throw "Text object ``function'' is not available for this buffer."
   endif
 
-  let current_position = getpos('.')
-
-  if !b:TOFunc.AfterP(getline('.'))
-    call b:TOFunc.MoveAfter()
-  endif
-  let e = line('.')
-  call b:TOFunc.MoveBefore()
-  let b = line('.')
-
-  if 1 < e - b  " is there some code?
-    execute 'normal!' (b+1).'G'
-    normal! V
-    execute 'normal!' (e-1).'G'
+  let prevpos = getpos('.')
+  let range = g:TOFunc[&filetype][a:funcname]()
+  if type(range) == type([])  " is there some code?
+    let [func_b, func_e] = range
+    call setpos('.', func_e)
+    execute 'normal!' (a:mode == 'v' ? visualmode() : 'v')
+    call setpos('.', func_b)
   else  " is there no code?
-    if mode() == 'n'  " operator-pending mode?
-      call setpos('.', current_position)
+    if a:mode == 'o'  " operator-pending mode?
+      call setpos('.', prevpos)
     else  " visual mode?
       normal! gv
     endif
@@ -97,21 +100,110 @@ function! s:TOFunc_Inner()
 endfunction
 
 
-function! s:TOFunc_All()
-  if !exists('b:TOFunc')
-    throw "Text object ``all function'' is not available for this buffer."
+
+
+" SAMPLE  "{{{1
+" c  "{{{2
+"
+" Assumes that C functions are written in the following style:
+"
+"   return-type
+"   function-name(arg1, arg2, ..., argN)
+"   {
+"     ...
+"   }
+"
+" * return-type must be written in one line.
+"
+" * function-name must be followed by ``(''.
+"
+" * argument list may be written in one or more lines,
+"   but the last line must end with ``)''.
+"
+" BUGS: If the cursor is between two functions,
+"       the next function will be selected.
+
+let g:TOFunc.c = {}
+
+function! g:TOFunc.c.GetRangeA()
+  if line('.') != '}'
+    normal ][
+  endif
+  let e = getpos('.')
+  normal [[
+  normal! k$%0k
+  let b = getpos('.')
+
+  if 1 < e[1] - b[1]  " is ther some code?
+    return [b, e]
+  else
+    return 0
+  endif
+endfunction
+
+function! g:TOFunc.c.GetRangeI()
+  if line('.') != '}'
+    normal ][
+  endif
+  let e = getpos('.')
+  normal [[
+  let b = getpos('.')
+
+  if 1 < e[1] - b[1]  " is ther some code?
+    call setpos('.', b)
+    normal! j0
+    let b = getpos('.')
+    call setpos('.', e)
+    normal! k$
+    let e = getpos('.')
+    return [b, e]
+  else
+    return 0
+  endif
+endfunction
+
+
+" vim  "{{{2
+
+let g:TOFunc.vim = {}
+let g:TOFunc.vim.BEGINNING = '^\s*fu\%[nction]\>'
+let g:TOFunc.vim.END = '^\s*endf\%[unction]\>'
+
+function! g:TOFunc.vim.GetRangeA()
+  if line('.') !~# g:TOFunc.vim.END
+    call searchpair(g:TOFunc.vim.BEGINNING, '', g:TOFunc.vim.END, 'W')
+  endif
+  normal! $
+  let e = getpos('.')
+  normal! 0
+  call searchpair(g:TOFunc.vim.BEGINNING, '', g:TOFunc.vim.END, 'bW')
+  let b = getpos('.')
+
+  if b != e
+    return [b, e]
+  else
+    return 0
+  endif
+endfunction
+
+function! g:TOFunc.vim.GetRangeI()
+  let range = g:TOFunc.vim.GetRangeA()
+  if type(range) == type(0)
+    return 0
   endif
 
-  if !b:TOFunc.EndP(getline('.'))
-    call b:TOFunc.MoveEnd()
+  let [b, e] = range
+  if 1 < e[1] - b[1]  " is ther some code?
+    call setpos('.', b)
+    normal! j0
+    let b = getpos('.')
+    call setpos('.', e)
+    normal! k$
+    let e = getpos('.')
+    return [b, e]
+  else
+    return 0
   endif
-  let e = line('.')
-  call b:TOFunc.MoveBeginning()
-  let b = line('.')
-
-  execute 'normal' b.'G'
-  normal V
-  execute 'normal' e.'G'
 endfunction
 
 
