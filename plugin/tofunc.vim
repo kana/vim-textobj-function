@@ -1,38 +1,7 @@
 " TOFunc - Text object for a function.
 " Author: kana <http://nicht.s8.xrea.com/>
 " License: MIT license (see <http://www.opensource.org/licenses/mit-license>)
-" $Id$
-" MANUAL  "{{{1
-" =============
-"
-" TOFunc provides the following text objects:
-"
-"                                                       *v_af* *af*
-" af                    ``a function'', select the all range of a function.
-"
-"                                                       *v_if* *if*
-" if                    ``inner function'', select the body of a function,
-"                       but other parts of a function are not included
-"                       (e.g. its name, its arguments and so forth).
-"
-"
-" TOFunc uses the following functions to get the appropriate range of a
-" function for the current 'filetype':
-"
-" g:TOFunc[&filetye].GetRangeI()                        *GetRangeI()*
-"                       Returns the range of ``inner function''.
-"                       The return value is [b, e], where b is the beginning
-"                       position and e is the end position of the range.
-"                       The detail of both values are same as |getpos()|. If
-"                       there is no appropriate function, this function must
-"                       return 0.
-"
-"                       Moving the cursor is allowed, but it is restored
-"                       afterwards.
-"
-" g:TOFunc[&filetye].GetRangeA()                        *GetRangeA()*
-"                       Like |GetRangeI()|,
-"                       but returns the range of ``a function''.
+" $Id$  "{{{1
 
 if exists('g:loaded_TOFunc')
   finish

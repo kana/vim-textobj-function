@@ -1,0 +1,66 @@
+*tofunc.txt*	Text object for a function
+
+Author:  kana <http://nicht.s8.xrea.com/>
+License: MIT license (see <http://www.opensource.org/licenses/mit-license>)
+$Id$
+
+
+Key mapings			|tofunc-mappings|
+Customizing			|tofunc-customizing|
+
+
+
+
+==============================================================================
+KEY MAPPINGS						*tofunc-mappings*
+
+
+In visual mode or operator-pending mode, the following text objects are
+available.  Note that the fllowing mappings will not be defined when its {lhs}
+is already mapped.
+
+af							*af* *o_af* *v_af*
+			``a function'', select the all range of a function.
+
+if							*if* *o_if* *v_if*
+			``inner function'', select the body of a function,
+			other parts of a function are not included e.g. its
+			name, its arguments and so forth).
+
+
+For customization, the follownig mappings are available.
+
+<Plug>TOFunc_A						*<Plug>TOFunc_A*
+			``a function''.
+
+<Plug>TOFunc_I						*<Plug>TOFunc_I*
+			``inner function''.
+
+
+
+
+==============================================================================
+CUSTOMIZING						*tofunc-customizing*
+
+TOFunc uses the following functions to get the appropriate range of a function
+for the current 'filetype'.  See ftplugin/*_tofunc.vim in the archive of
+TOFunc for examples.
+
+g:TOFunc[&filetye].GetRangeA()				*tofunc-GetRangeA()*
+			Like |GetRangeI()|, but returns the range of ``a
+			function''.
+
+g:TOFunc[&filetye].GetRangeI()				*tofunc-GetRangeI()*
+			Returns the range of ``inner function''.  The return
+			value is [b, e], where b is the beginning position and
+			e is the end position of the range.  The detail of
+			both values are same as |getpos()|. If there is no
+			appropriate function, this function must return 0.
+
+			Moving the cursor is allowed, but it is restored
+			afterwards.
+
+
+
+
+vim:tw=78:ts=8:ft=help:norl:
