@@ -43,21 +43,21 @@ endif
 
 " KEY MAPPINGS  "{{{1
 
-noremap <silent> <Plug>TOFunc_AO  :<C-u>call <SID>TOFunc_A('o')<Return>
-noremap <silent> <Plug>TOFunc_AV  :<C-u>call <SID>TOFunc_A('v')<Return>
-noremap <silent> <Plug>TOFunc_IO  :<C-u>call <SID>TOFunc_I('o')<Return>
-noremap <silent> <Plug>TOFunc_IV  :<C-u>call <SID>TOFunc_I('v')<Return>
+onoremap <silent> <Plug>TOFunc_A  :<C-u>call <SID>TOFunc_A('o')<Return>
+vnoremap <silent> <Plug>TOFunc_A  :<C-u>call <SID>TOFunc_A('v')<Return>
+onoremap <silent> <Plug>TOFunc_I  :<C-u>call <SID>TOFunc_I('o')<Return>
+vnoremap <silent> <Plug>TOFunc_I  :<C-u>call <SID>TOFunc_I('v')<Return>
 
 
-function! s:SafeMap(mode, lhs, rhs)
-  if !hasmapto(a:rhs)
-    execute 'silent!' a:mode '<unique>' a:lhs a:rhs
+function! s:SafeMap(maptype, lhs, rhs)
+  if !hasmapto(a:rhs, a:maptype[0])
+    execute 'silent!' a:maptype '<unique>' a:lhs a:rhs
   endif
 endfunction
-call s:SafeMap('omap', 'af', '<Plug>TOFunc_AO')
-call s:SafeMap('vmap', 'af', '<Plug>TOFunc_AV')
-call s:SafeMap('omap', 'if', '<Plug>TOFunc_IO')
-call s:SafeMap('vmap', 'if', '<Plug>TOFunc_IV')
+call s:SafeMap('omap', 'af', '<Plug>TOFunc_A')
+call s:SafeMap('vmap', 'af', '<Plug>TOFunc_A')
+call s:SafeMap('omap', 'if', '<Plug>TOFunc_I')
+call s:SafeMap('vmap', 'if', '<Plug>TOFunc_I')
 delfunction s:SafeMap
 
 
