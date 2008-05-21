@@ -1,7 +1,6 @@
 " TOFunc settings for Vim script
 " Author: kana <http://nicht.s8.xrea.com/>
 " License: MIT license (see <http://www.opensource.org/licenses/mit-license>)
-" $Id$
 
 if exists('g:TOFunc.vim')
   finish

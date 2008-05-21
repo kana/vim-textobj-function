@@ -1,7 +1,6 @@
 " TOFunc settings for C
 " Author: kana <http://nicht.s8.xrea.com/>
 " License: MIT license (see <http://www.opensource.org/licenses/mit-license>)
-" $Id$
 "
 " BUGS: C functions must be written in the following style:
 "

@@ -1,7 +1,7 @@
 " TOFunc - Text object for a function.
 " Author: kana <http://nicht.s8.xrea.com/>
 " License: MIT license (see <http://www.opensource.org/licenses/mit-license>)
-" $Id$  "{{{1
+"{{{1
 
 if exists('g:loaded_TOFunc')
   finish
@@ -75,5 +75,8 @@ endfunction
 
 let g:loaded_TOFunc = 1
 
-" __END__
+
+
+
+" __END__  "{{{1
 " vim: foldmethod=marker

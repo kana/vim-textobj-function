@@ -2,7 +2,6 @@
 
 Author:  kana <http://nicht.s8.xrea.com/>
 License: MIT license (see <http://www.opensource.org/licenses/mit-license>)
-$Id$
 
 
 Key mapings			|tofunc-mappings|
