@@ -1,5 +1,6 @@
 *tofunc.txt*	Text object for a function
 
+Version 0.0
 Copyright (C) 2007-2008 kana <http://whileimautomaton.net/>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -22,25 +23,44 @@ License: MIT license  {{{
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }}}
 
+CONTENTS					*tofunc-contents*
 
-Key mapings			|tofunc-mappings|
-Customizing			|tofunc-customizing|
+Introduction		|tofunc-introduction|
+Interface		|tofunc-interface|
+  Functions		  |tofunc-functions|
+Customizing		|tofunc-customizing|
+Bugs			|tofunc-bugs|
+Changelog		|tofunc-changelog|
 
 
 
 
 ==============================================================================
-KEY MAPPINGS						*tofunc-mappings*
+INTRODUCTION					*tofunc-introduction*
+
+Tofunc is a Vim plugin to provide text objects for a function.
+
+Requirements:
+- Vim 7.1 or later.
+
+
+
+
+==============================================================================
+INTERFACE					*tofunc-interface*
+
+------------------------------------------------------------------------------
+MAPPINGS					*tofunc-mappings*
 
 
 In visual mode or operator-pending mode, the following text objects are
 available.  Note that the fllowing mappings will not be defined when its {lhs}
 is already mapped.
 
-af							*af* *o_af* *v_af*
+af						*af* *o_af* *v_af*
 			``a function'', select the all range of a function.
 
-if							*if* *o_if* *v_if*
+if						*if* *o_if* *v_if*
 			``inner function'', select the body of a function,
 			other parts of a function are not included e.g. its
 			name, its arguments and so forth).
@@ -48,27 +68,27 @@ if							*if* *o_if* *v_if*
 
 For customization, the follownig mappings are available.
 
-<Plug>TOFunc_A						*<Plug>TOFunc_A*
+<Plug>TOFunc_A					*<Plug>TOFunc_A*
 			``a function''.
 
-<Plug>TOFunc_I						*<Plug>TOFunc_I*
+<Plug>TOFunc_I					*<Plug>TOFunc_I*
 			``inner function''.
 
 
 
 
 ==============================================================================
-CUSTOMIZING						*tofunc-customizing*
+CUSTOMIZING					*tofunc-customizing*
 
 TOFunc uses the following functions to get the appropriate range of a function
 for the current 'filetype'.  See ftplugin/*_tofunc.vim in the archive of
 TOFunc for examples.
 
-g:TOFunc[&filetye].GetRangeA()				*tofunc-GetRangeA()*
+g:TOFunc[&filetye].GetRangeA()			*tofunc-GetRangeA()*
 			Like |GetRangeI()|, but returns the range of ``a
 			function''.
 
-g:TOFunc[&filetye].GetRangeI()				*tofunc-GetRangeI()*
+g:TOFunc[&filetye].GetRangeI()			*tofunc-GetRangeI()*
 			Returns the range of ``inner function''.  The return
 			value is [b, e], where b is the beginning position and
 			e is the end position of the range.  The detail of
@@ -77,6 +97,23 @@ g:TOFunc[&filetye].GetRangeI()				*tofunc-GetRangeI()*
 
 			Moving the cursor is allowed, but it is restored
 			afterwards.
+
+
+
+
+==============================================================================
+BUGS						*tofunc-bugs*
+
+- There are many bugs around the world.
+
+
+
+
+==============================================================================
+CHANGELOG					*tofunc-changelog*
+
+0.0	2007-XX-XX
+	- Initial version.
 
 
 
