@@ -1,4 +1,4 @@
-" TOFunc - Text object for a function.
+" TOFunc - Text object for a function
 " Author: kana <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining

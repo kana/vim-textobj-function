@@ -1,4 +1,4 @@
-" TOFunc settings for C
+" Vim additional ftplugin: c_tofunc - TOFunc settings
 " Author: kana <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
