@@ -27,7 +27,7 @@ CONTENTS					*tofunc-contents*
 
 Introduction		|tofunc-introduction|
 Interface		|tofunc-interface|
-  Functions		  |tofunc-functions|
+  Key Mappings		  |tofunc-key-mappings|
 Customizing		|tofunc-customizing|
 Bugs			|tofunc-bugs|
 Changelog		|tofunc-changelog|
@@ -50,7 +50,7 @@ Requirements:
 INTERFACE					*tofunc-interface*
 
 ------------------------------------------------------------------------------
-MAPPINGS					*tofunc-mappings*
+KEY MAPPINGS					*tofunc-key-mappings*
 
 
 In visual mode or operator-pending mode, the following text objects are
