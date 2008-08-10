@@ -38,10 +38,11 @@ Changelog		|tofunc-changelog|
 ==============================================================================
 INTRODUCTION					*tofunc-introduction*
 
-Tofunc is a Vim plugin to provide text objects for a function.
+*tofunc* is a Vim plugin to provide text objects for a function.
+
 
 Requirements:
-- Vim 7.1 or later.
+- Vim 7.1 or later
 
 
 
