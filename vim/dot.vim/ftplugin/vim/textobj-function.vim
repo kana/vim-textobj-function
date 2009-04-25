@@ -1,4 +1,4 @@
-" Vim additional ftplugin: vim_tofunc - TOFunc settings
+" Vim additional ftplugin: vim/textobj-function
 " Copyright (C) 2007-2008 kana <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining

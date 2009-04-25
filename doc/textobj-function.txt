@@ -1,6 +1,6 @@
-*tofunc.txt*	Text object for a function
+*textobj-function.txt*	Text object for a function
 
-Version 0.0
+Version 0.1.0
 Copyright (C) 2007-2008 kana <http://whileimautomaton.net/>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -23,38 +23,38 @@ License: MIT license  {{{
     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 }}}
 
-CONTENTS					*tofunc-contents*
+CONTENTS					*textobj-function-contents*
 
-Introduction		|tofunc-introduction|
-Interface		|tofunc-interface|
-  Key Mappings		  |tofunc-key-mappings|
-Customizing		|tofunc-customizing|
-Bugs			|tofunc-bugs|
-Changelog		|tofunc-changelog|
+Introduction		|textobj-function-introduction|
+Interface		|textobj-function-interface|
+  Key Mappings		  |textobj-function-key-mappings|
+Customizing		|textobj-function-customizing|
+Bugs			|textobj-function-bugs|
+Changelog		|textobj-function-changelog|
 
 
 
 
 ==============================================================================
-INTRODUCTION					*tofunc-introduction*
+INTRODUCTION					*textobj-function-introduction*
 
-*tofunc* is a Vim plugin to provide text objects for a function.
+*textobj-function* is a Vim plugin to provide text objects for a function.
 
 
 Requirements:
 - Vim 7.1 or later
 
 Latest version:
-http://github.com/kana/config/commits/vim-tofunc
+http://github.com/kana/config/commits/vim-textobj-function
 
 
 
 
 ==============================================================================
-INTERFACE					*tofunc-interface*
+INTERFACE					*textobj-function-interface*
 
 ------------------------------------------------------------------------------
-KEY MAPPINGS					*tofunc-key-mappings*
+KEY MAPPINGS					*textobj-function-key-mappings*
 
 
 In visual mode or operator-pending mode, the following text objects are
@@ -82,17 +82,17 @@ For customization, the follownig mappings are available.
 
 
 ==============================================================================
-CUSTOMIZING					*tofunc-customizing*
+CUSTOMIZING					*textobj-function-customizing*
 
 TOFunc uses the following functions to get the appropriate range of a function
-for the current 'filetype'.  See ftplugin/*_tofunc.vim in the archive of
+for the current 'filetype'.  See ftplugin/*_textobj-function.vim in the archive of
 TOFunc for examples.
 
-g:TOFunc[&filetye].GetRangeA()			*tofunc-GetRangeA()*
+g:TOFunc[&filetye].GetRangeA()			*textobj-function-GetRangeA()*
 			Like |GetRangeI()|, but returns the range of ``a
 			function''.
 
-g:TOFunc[&filetye].GetRangeI()			*tofunc-GetRangeI()*
+g:TOFunc[&filetye].GetRangeI()			*textobj-function-GetRangeI()*
 			Returns the range of ``inner function''.  The return
 			value is [b, e], where b is the beginning position and
 			e is the end position of the range.  The detail of
@@ -106,7 +106,7 @@ g:TOFunc[&filetye].GetRangeI()			*tofunc-GetRangeI()*
 
 
 ==============================================================================
-BUGS						*tofunc-bugs*
+BUGS						*textobj-function-bugs*
 
 - There are many bugs around the world.
 
@@ -114,7 +114,16 @@ BUGS						*tofunc-bugs*
 
 
 ==============================================================================
-CHANGELOG					*tofunc-changelog*
+CHANGELOG					*textobj-function-changelog*
+
+0.1.0	2009-04-25T14:17:41+09:00
+	- Rename the name of this plugin as textobj-function.  The old name is
+	  tofunc and it's not clear to indicate what this plugin does.
+	- Change the locations of sample scripts to use textobj-function.  Old
+	  version put the scripts in after/ftplugin.  Now the scripts are put
+	  in ftplugin.  Because there is no reason to put the scripts in
+	  after/ftplugin and it may disturb users to override the sample
+	  scripts with their own ones.
 
 0.0	2007-XX-XX
 	- Initial version.
