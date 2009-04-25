@@ -45,7 +45,7 @@ Unless installing, this script does nothing.
 
 Requirements:
 - Vim 7.2 or later
-- |textobj-function| 0.1.0 or later (vimscript#2618)
+- |textobj-function| 0.1.0 or later (vimscript#2619)
 
 Latest version:
 http://github.com/kana/config/commits/vim-textobj-function
