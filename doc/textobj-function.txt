@@ -29,6 +29,7 @@ Introduction		|textobj-function-introduction|
 Interface		|textobj-function-interface|
   Key Mappings		  |textobj-function-key-mappings|
 Customizing		|textobj-function-customizing|
+API			|textobj-function-api|
 Bugs			|textobj-function-bugs|
 Changelog		|textobj-function-changelog|
 
@@ -38,11 +39,22 @@ Changelog		|textobj-function-changelog|
 ==============================================================================
 INTRODUCTION					*textobj-function-introduction*
 
-*textobj-function* is a Vim plugin to provide text objects for a function.
+*textobj-function* is a Vim plugin to provide universal text objects for
+various kinds of functions.  For example, you can select any function with
+|<Plug>(textobj-function-a)| / |<Plug>(textobj-function-i)| (default key
+bindings: af / if).
+
+The definition of a function is usually differed depending on what you are
+editing, so at first, you have to tell the definition of what kind of function
+you want to select to textobj-function.  By default, textobj-function knows
+about functions in C and Vim script.  If you want to tell about more functions
+in other languages, see |textobj-function-customizing| for how to tell and
+ftplugin/*/textobj-function.vim for the samples.
 
 
 Requirements:
-- Vim 7.1 or later
+- Vim 7.2 or later
+- |textobj-user| 0.3.7 or later (vimscript#2100)
 
 Latest version:
 http://github.com/kana/config/commits/vim-textobj-function
@@ -54,29 +66,24 @@ http://github.com/kana/config/commits/vim-textobj-function
 INTERFACE					*textobj-function-interface*
 
 ------------------------------------------------------------------------------
-KEY MAPPINGS					*textobj-function-key-mappings*
+KEY MAPPINGS				       *textobj-function-key-mappings*
+
+In visual mode and operator-pending mode, the following text objects are
+available.  Note that the fllowing key mappings will not be defined when its
+{lhs} is already mapped.
 
 
-In visual mode or operator-pending mode, the following text objects are
-available.  Note that the fllowing mappings will not be defined when its {lhs}
-is already mapped.
+<Plug>(textobj-function-a)			*<Plug>(textobj-function-a)*
+			"a function" - Select the all range of a function.
+			This text object is |linewise| by default, but it may
+			be |characterwise| or |blockwise| depending on what
+			function is being selected.
 
-af						*af* *o_af* *v_af*
-			``a function'', select the all range of a function.
-
-if						*if* *o_if* *v_if*
-			``inner function'', select the body of a function,
-			other parts of a function are not included e.g. its
-			name, its arguments and so forth).
-
-
-For customization, the follownig mappings are available.
-
-<Plug>TOFunc_A					*<Plug>TOFunc_A*
-			``a function''.
-
-<Plug>TOFunc_I					*<Plug>TOFunc_I*
-			``inner function''.
+<Plug>(textobj-function-i)			*<Plug>(textobj-function-i)*
+			"inner function" - Like |<Plug>(textobj-function-a)|,
+			but select the body of a function, other parts of
+			a function are not included e.g. its name, its
+			arguments and so forth).
 
 
 
@@ -84,23 +91,50 @@ For customization, the follownig mappings are available.
 ==============================================================================
 CUSTOMIZING					*textobj-function-customizing*
 
-TOFunc uses the following functions to get the appropriate range of a function
-for the current 'filetype'.  See ftplugin/*_textobj-function.vim in the archive of
-TOFunc for examples.
+				  *g:textobj_function_no_default_key_mappings*
+					  *:TextobjFunctionDefaultKeyMappings*
+This plugin will define the following key mappings in Visual mode and
+Operator-pending mode automatically.  If you don't want these key mappings,
+define |g:textobj_function_no_default_key_mappings| before this plugin is
+loaded (e.g. in your |vimrc|).  You can also use
+|:TextobjFunctionDefaultKeyMappings| to redefine these key mappings.  This
+command doesn't override existing {lhs}s unless [!] is given.
 
-g:TOFunc[&filetye].GetRangeA()			*textobj-function-GetRangeA()*
-			Like |GetRangeI()|, but returns the range of ``a
-			function''.
+	{lhs}	{rhs}				~
+	-----	---------------------------	~
+	af	<Plug>(textobj-function-a)
+	if	<Plug>(textobj-function-i)
 
-g:TOFunc[&filetye].GetRangeI()			*textobj-function-GetRangeI()*
-			Returns the range of ``inner function''.  The return
-			value is [b, e], where b is the beginning position and
-			e is the end position of the range.  The detail of
-			both values are same as |getpos()|. If there is no
-			appropriate function, this function must return 0.
 
-			Moving the cursor is allowed, but it is restored
-			afterwards.
+
+
+==============================================================================
+API						*textobj-function-api*
+
+textobj-function uses the following function to know the range to select
+a function which is appropriate for the current buffer.  See
+ftplugin/*/textobj-function.vim in the archives of textobj-function for
+examples.
+
+b:textobj_function_select({type})		*b:textobj_function_select()*
+		Return a list to indicate the range to select a function.  If
+		there is no function to select, return 0 instead.
+
+		If {type} is true, return the range for "a function".
+		Otherwise, return the range for "inner function".
+
+		The detail of a list to return is as follows:
+>
+			[{*wise}, {start-position}, {end-position}]
+<
+		- {*wise} denotes the default type of selection.  Valid values
+		  are "v", "V" or "\<C-v>".  The meaning of the values are
+		  characterwise, linewise or blockwise.
+		- {start-position} denotes the start position of the area to
+		  be selected.  The detail of this value is the same as
+		  |getpos()|.
+		- {end-position} is like {start-position}, but it denotes the
+		  end position of the area to be selected.
 
 
 
@@ -124,6 +158,9 @@ CHANGELOG					*textobj-function-changelog*
 	  in ftplugin.  Because there is no reason to put the scripts in
 	  after/ftplugin and it may disturb users to override the sample
 	  scripts with their own ones.
+	- Change to use |textobj-user| instead of its own framework.
+	- Change the API.  See |textobj-function-api| for the details.  It is
+	  now incompatible with old versions.
 
 0.0	2007-XX-XX
 	- Initial version.
