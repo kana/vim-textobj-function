@@ -21,54 +21,67 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 
-if exists('g:TOFunc.vim')
-  finish
+if !exists('*g:textobj_function_vim_select')
+  let s:BEGINNING_PATTERN = '^\s*fu\%[nction]\>'
+  let s:END_PATTERN = '^\s*endf\%[unction]\>'
+
+
+  function! g:textobj_function_vim_select(object_type)
+    return s:select_{a:object_type}()
+  endfunction
+
+  function! s:select_a()
+    if line('.') !~# s:END_PATTERN
+      call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'W')
+    endif
+    normal! $
+    let e = getpos('.')
+    normal! 0
+    call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'bW')
+    let b = getpos('.')
+
+    if b != e
+      return ['V', b, e]
+    else
+      return 0
+    endif
+  endfunction
+
+  function! s:select_i()
+    let range = s:select_a()
+    if type(range) == type(0)
+      return 0
+    endif
+
+    let [__unused__wise, b, e] = range
+    if 1 < e[1] - b[1]  " is ther some code?
+      call setpos('.', b)
+      normal! j0
+      let b = getpos('.')
+      call setpos('.', e)
+      normal! k$
+      let e = getpos('.')
+      return ['V', b, e]
+    else
+      return 0
+    endif
+  endfunction
 endif
 
 
 
 
-let g:TOFunc.vim = {}
-let s:BEGINNING_PATTERN = '^\s*fu\%[nction]\>'
-let s:END_PATTERN = '^\s*endf\%[unction]\>'
+let b:textobj_function_select = function('g:textobj_function_vim_select')
 
 
-function! g:TOFunc.vim.GetRangeA()
-  if line('.') !~# s:END_PATTERN
-    call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'W')
-  endif
-  normal! $
-  let e = getpos('.')
-  normal! 0
-  call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'bW')
-  let b = getpos('.')
-
-  if b != e
-    return [b, e]
-  else
-    return 0
-  endif
-endfunction
 
 
-function! g:TOFunc.vim.GetRangeI()
-  let range = g:TOFunc.vim.GetRangeA()
-  if type(range) == type(0)
-    return 0
-  endif
-
-  let [b, e] = range
-  if 1 < e[1] - b[1]  " is ther some code?
-    call setpos('.', b)
-    normal! j0
-    let b = getpos('.')
-    call setpos('.', e)
-    normal! k$
-    let e = getpos('.')
-    return [b, e]
-  else
-    return 0
-  endif
-endfunction
+if exists('b:undo_ftplugin')
+  let b:undo_ftplugin .= '|'
+else
+  let b:undo_ftplugin = ''
+endif
+let b:undo_ftplugin .= 'unlet b:textobj_function_select'
 
 " __END__
+" vim: foldmethod=marker
