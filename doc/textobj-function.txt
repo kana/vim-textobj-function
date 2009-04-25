@@ -1,6 +1,7 @@
 *textobj-function.txt*	Text object for a function
 
 Version 0.1.0
+Script ID: 2618
 Copyright (C) 2007-2009 kana <http://whileimautomaton.net/>
 License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
@@ -44,13 +45,17 @@ various kinds of functions.  For example, you can select any function with
 |<Plug>(textobj-function-a)| / |<Plug>(textobj-function-i)| (default key
 bindings: af / if).
 
-The definition of a function is usually differed depending on what you are
+The definition of a "function" is usually differed depending on what you are
 editing, so at first, you have to tell the definition of what kind of function
 you want to select to textobj-function.  By default, textobj-function knows
-about functions in C and Vim script.  If you want to tell about more functions
-in other languages, see |textobj-function-customizing| for how to tell and
-after/ftplugin/*/textobj-function.vim for the samples.
+about functions in the following languages:
+					    *textobj-function-known-languages*
+- C language		|textobj-function-c|
+- Vim script		|textobj-function-vim|
 
+If you want to tell about more functions in other languages, see
+|textobj-function-customizing| for how to tell and
+after/ftplugin/*/textobj-function.vim for the samples.
 
 Requirements:
 - Vim 7.2 or later
@@ -78,6 +83,11 @@ available.  Note that the fllowing key mappings will not be defined when its
 			This text object is |linewise| by default, but it may
 			be |characterwise| or |blockwise| depending on what
 			function is being selected.
+
+			Note that unlike built-in text objects, "a function"
+			doesn't include leading or trailing blanks and/or
+			blank lines.  This problem will be fixed in the near
+			future - by adding another text object.
 
 <Plug>(textobj-function-i)			*<Plug>(textobj-function-i)*
 			"inner function" - Like |<Plug>(textobj-function-a)|,
@@ -151,7 +161,9 @@ b:textobj_function_select({object-type})	*b:textobj_function_select()*
 ==============================================================================
 BUGS						*textobj-function-bugs*
 
-- There are many bugs around the world.
+- See |textobj-user-bugs| for further information.
+
+- Please report me if you find any bug not described above.
 
 
 
@@ -165,6 +177,8 @@ CHANGELOG					*textobj-function-changelog*
 	- Change to use |textobj-user| instead of its own framework.
 	- Change the API.  See |textobj-function-api| for the details.  It is
 	  now incompatible with old versions.
+	- Add documents for sample scripts.
+	  See |textobj-function-known-languages|.
 
 0.0	2007-XX-XX
 	- Initial version.

@@ -20,24 +20,6 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-"
-" BUGS: C functions must be written in the following style:
-"
-"           return-type
-"           function-name(arg1, arg2, ..., argN)
-"           {
-"             ...
-"           }
-"
-"       * return-type must be written in one line.
-"
-"       * function-name must be followed by ``(''.
-"
-"       * argument list may be written in one or more lines,
-"         but the last line must end with ``)''.
-"
-" BUGS: If the cursor is between two functions,
-"       the next function will be selected.
 
 if !exists('*g:textobj_function_c_select')
   function! g:textobj_function_c_select(object_type)
