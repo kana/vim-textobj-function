@@ -141,6 +141,10 @@ b:textobj_function_select({object-type})	*b:textobj_function_select()*
 		- {end-position} is like {start-position}, but it denotes the
 		  end position of the area to be selected.
 
+		In this function, it is allowd to move the cursor to anywhere.
+		The cursor will be automatically adjusted or restored after
+		calling this function.
+
 
 
 
