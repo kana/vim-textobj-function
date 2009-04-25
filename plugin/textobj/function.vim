@@ -1,4 +1,5 @@
 " textobj-function - Text objects for functions
+" Version: 0.1.0
 " Copyright (C) 2007-2009 kana <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
@@ -20,82 +21,66 @@
 "     TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
-"{{{1
-
-if exists('g:loaded_TOFunc')
+if exists('g:loaded_textobj_function')  "{{{1
   finish
 endif
 
 
 
 
-" KEY MAPPINGS  "{{{1
-
-onoremap <silent> <Plug>TOFunc_A  :<C-u>call <SID>TOFunc_A('o')<Return>
-vnoremap <silent> <Plug>TOFunc_A  :<C-u>call <SID>TOFunc_A('v')<Return>
-onoremap <silent> <Plug>TOFunc_I  :<C-u>call <SID>TOFunc_I('o')<Return>
-vnoremap <silent> <Plug>TOFunc_I  :<C-u>call <SID>TOFunc_I('v')<Return>
-
-
-function! s:SafeMap(maptype, lhs, rhs)
-  if !hasmapto(a:rhs, a:maptype[0])
-    execute 'silent!' a:maptype '<unique>' a:lhs a:rhs
-  endif
-endfunction
-call s:SafeMap('omap', 'af', '<Plug>TOFunc_A')
-call s:SafeMap('vmap', 'af', '<Plug>TOFunc_A')
-call s:SafeMap('omap', 'if', '<Plug>TOFunc_I')
-call s:SafeMap('vmap', 'if', '<Plug>TOFunc_I')
-delfunction s:SafeMap
 
 
 
 
-" FUNCTIONS  "{{{1
+" Interface  "{{{1
 
-let g:TOFunc = {}
+call textobj#user#plugin('function', {
+\      '-': {
+\        '*sfile*': expand('<sfile>:p'),
+\        'select-a': 'af',  '*select-a-function*': 's:select_a',
+\        'select-i': 'if',  '*select-i-function*': 's:select_i'
+\      }
+\    })
 
 
-function! s:TOFunc_A(mode)
-  return s:SelectOrNop('GetRangeA', a:mode)
+
+
+
+
+
+
+" Misc.  "{{{1
+function! s:select(object_type)
+  return exists('b:textobj_function_select')
+  \      ? b:textobj_function_select(a:object_type)
+  \      : 0
 endfunction
 
-function! s:TOFunc_I(mode)
-  return s:SelectOrNop('GetRangeI', a:mode)
+function! s:select_a()
+  return s:select('a')
 endfunction
 
-
-" Abbreviations: B for the beginning position, E for the end position.
-function! s:SelectOrNop(funcname, mode)
-  if !exists('g:TOFunc[&filetype]')
-    throw "Text object ``function'' is not available for this buffer."
-  endif
-
-  let prevpos = getpos('.')
-  let range = g:TOFunc[&filetype][a:funcname]()
-  if type(range) == type([])  " is there some code?
-    let [func_b, func_e] = range
-    call setpos('.', func_e)
-    execute 'normal!' (a:mode == 'v' ? visualmode() : 'v')
-    call setpos('.', func_b)
-  else  " is there no code?
-    if a:mode == 'o'  " operator-pending mode?
-      call setpos('.', prevpos)
-    else  " visual mode?
-      normal! gv
-    endif
-  endif
+function! s:select_i()
+  return s:select('i')
 endfunction
 
 
 
 
-" ETC  "{{{1
-
-let g:loaded_TOFunc = 1
 
 
 
 
-" __END__  "{{{1
+" Fin.  "{{{1
+
+let g:loaded_textobj_function = 1
+
+
+
+
+
+
+
+
+" __END__
 " vim: foldmethod=marker
