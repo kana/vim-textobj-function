@@ -116,12 +116,17 @@ a function which is appropriate for the current buffer.  See
 ftplugin/*/textobj-function.vim in the archives of textobj-function for
 examples.
 
-b:textobj_function_select({type})		*b:textobj_function_select()*
+b:textobj_function_select({object-type})	*b:textobj_function_select()*
 		Return a list to indicate the range to select a function.  If
 		there is no function to select, return 0 instead.
 
-		If {type} is true, return the range for "a function".
-		Otherwise, return the range for "inner function".
+		{object-type} specifies the type of object to select.  This
+		can be one of the following values:
+
+			Value	Meaning		~
+			----------------------- ~
+			'a'	"a function"
+			'i'	"inner function"
 
 		The detail of a list to return is as follows:
 >
