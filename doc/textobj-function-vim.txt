@@ -50,6 +50,9 @@ Requirements:
 Latest version:
 http://github.com/kana/config/commits/vim-textobj-function
 
+Document in HTML format:
+http://kana.github.com/config/vim/textobj-function-vim.html
+
 
 
 
