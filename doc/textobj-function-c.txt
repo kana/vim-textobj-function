@@ -91,10 +91,10 @@ BUGS						*textobj-function-c-bugs*
 ==============================================================================
 CHANGELOG					*textobj-function-c-changelog*
 
-0.1.0	2009-04-25T20:09:50+09:00
+0.1.0	2009-04-25T20:09:50+09:00	  *textobj-function-c-changelog-0.1.0*
 	- Rewrite for new version of |textobj-function|.
 
-0.0	2007-XX-XX
+0.0	2007-XX-XX			    *textobj-function-c-changelog-0.0*
 	- Initial version.
 
 

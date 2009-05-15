@@ -174,7 +174,7 @@ BUGS						*textobj-function-bugs*
 ==============================================================================
 CHANGELOG					*textobj-function-changelog*
 
-0.1.0	2009-04-25T14:17:41+09:00
+0.1.0	2009-04-25T14:17:41+09:00	    *textobj-function-changelog-0.1.0*
 	- Rename the name of this plugin as textobj-function.  The old name is
 	  tofunc and it's not clear to indicate what this plugin does.
 	- Change to use |textobj-user| instead of its own framework.
@@ -183,7 +183,7 @@ CHANGELOG					*textobj-function-changelog*
 	- Add documents for sample scripts.
 	  See |textobj-function-known-languages|.
 
-0.0	2007-XX-XX
+0.0	2007-XX-XX			      *textobj-function-changelog-0.0*
 	- Initial version.
 
 
