@@ -177,6 +177,10 @@ BUGS						*textobj-function-bugs*
 ==============================================================================
 CHANGELOG					*textobj-function-changelog*
 
+0.1.2	2013-01-18T20:11:40+09:00		*textobj-function-changelog-0.1.2*
+	- Support vim-flavor <https://github.com/kana/vim-flavor>.
+	- Update |textobj-function-introduction|.
+
 0.1.1	2012-03-24T14:45:28+09:00	    *textobj-function-changelog-0.1.1*
 	- Refine the document a bit.
 	- Refine the internal structure a bit.
