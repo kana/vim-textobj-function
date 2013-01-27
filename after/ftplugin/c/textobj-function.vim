@@ -28,7 +28,7 @@ if !exists('*g:textobj_function_c_select')
   endfunction
 
   function! s:select_a()
-    if line('.') != '}'
+    if getline('.') != '}'
       normal ][
     endif
     let e = getpos('.')
@@ -44,7 +44,7 @@ if !exists('*g:textobj_function_c_select')
   endfunction
 
   function! s:select_i()
-    if line('.') != '}'
+    if getline('.') != '}'
       normal ][
     endif
     let e = getpos('.')
