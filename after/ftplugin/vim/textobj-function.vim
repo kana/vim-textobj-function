@@ -32,8 +32,11 @@ if !exists('*g:textobj_function_vim_select')
   endfunction
 
   function! s:select_a()
-    if line('.') !~# s:END_PATTERN
-      call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'W')
+    if getline('.') !~# s:END_PATTERN
+      if searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'W') <= 0
+        " The cursor seems not to be placed on any function.
+        return 0
+      endif
     endif
     normal! $
     let e = getpos('.')
@@ -55,7 +58,7 @@ if !exists('*g:textobj_function_vim_select')
     endif
 
     let [__unused__wise, b, e] = range
-    if 1 < e[1] - b[1]  " is ther some code?
+    if 1 < e[1] - b[1]  " is there some code?
       call setpos('.', b)
       normal! j0
       let b = getpos('.')
