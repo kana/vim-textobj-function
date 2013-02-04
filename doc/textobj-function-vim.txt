@@ -1,6 +1,6 @@
 *textobj-function-vim.txt*	Text objects for functions in Vim script
 
-Version 0.1.2
+Version 0.1.3
 Script ID: ****
 Copyright (C) 2007-2013 Kana Natsuno <http://whileimautomaton.net/>
 License: So-called MIT license  {{{
@@ -93,7 +93,11 @@ BUGS						*textobj-function-vim-bugs*
 ==============================================================================
 CHANGELOG				      *textobj-function-vim-changelog*
 
-0.1.2	2013-01-18T20:11:40+09:00		*textobj-function-vim-changelog-0.1.2*
+0.1.3	2013-02-04T23:02:33+09:00	*textobj-function-vim-changelog-0.1.3*
+	- Fix |<Plug>(textobj-function-a)| not to select the current line if
+	  the cursor is not placed on any function.
+
+0.1.2	2013-01-18T20:11:40+09:00	*textobj-function-vim-changelog-0.1.2*
 	- Support vim-flavor <https://github.com/kana/vim-flavor>.
 	- Update |textobj-function-vim-introduction|.
 
