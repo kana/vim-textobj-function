@@ -32,7 +32,7 @@ if !exists('*g:textobj_function_vim_select')
   endfunction
 
   function! s:select_a()
-    if line('.') !~# s:END_PATTERN
+    if getline('.') !~# s:END_PATTERN
       call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'W')
     endif
     normal! $
