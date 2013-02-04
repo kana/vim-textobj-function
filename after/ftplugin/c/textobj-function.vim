@@ -36,7 +36,7 @@ if !exists('*g:textobj_function_c_select')
     normal! k$%0k
     let b = getpos('.')
 
-    if 1 < e[1] - b[1]  " is ther some code?
+    if 1 < e[1] - b[1]  " is there some code?
       return ['V', b, e]
     else
       return 0
@@ -51,7 +51,7 @@ if !exists('*g:textobj_function_c_select')
     normal [[
     let b = getpos('.')
 
-    if 1 < e[1] - b[1]  " is ther some code?
+    if 1 < e[1] - b[1]  " is there some code?
       call setpos('.', b)
       normal! j0
       let b = getpos('.')
