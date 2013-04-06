@@ -29,10 +29,10 @@ if !exists('*g:textobj_function_c_select')
 
   function! s:select_a()
     if getline('.') != '}'
-      normal ][
+      normal! ][
     endif
     let e = getpos('.')
-    normal [[
+    normal! [[
     normal! k$%0k
     let b = getpos('.')
 
@@ -45,10 +45,10 @@ if !exists('*g:textobj_function_c_select')
 
   function! s:select_i()
     if getline('.') != '}'
-      normal ][
+      normal! ][
     endif
     let e = getpos('.')
-    normal [[
+    normal! [[
     let b = getpos('.')
 
     if 1 < e[1] - b[1]  " is there some code?
