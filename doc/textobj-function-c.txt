@@ -1,6 +1,6 @@
 *textobj-function-c.txt*	Text objects for functions in C language
 
-Version 0.1.3
+Version 0.1.4
 Script ID: ****
 Copyright (C) 2007-2013 Kana Natsuno <http://whileimautomaton.net/>
 License: So-called MIT license  {{{
