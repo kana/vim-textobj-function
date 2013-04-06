@@ -1,9 +1,9 @@
 *textobj-function-c.txt*	Text objects for functions in C language
 
-Version 0.1.3
+Version 0.1.4
 Script ID: ****
 Copyright (C) 2007-2013 Kana Natsuno <http://whileimautomaton.net/>
-License: So-called MIT license  {{{
+License: MIT license  {{{
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
     "Software"), to deal in the Software without restriction, including
@@ -93,6 +93,11 @@ BUGS						*textobj-function-c-bugs*
 
 ==============================================================================
 CHANGELOG					*textobj-function-c-changelog*
+
+0.1.4	2013-04-06T23:25:21+09:00	  *textobj-function-c-changelog-0.1.4*
+	- Fix a bug that text objects don't work properly if "[[" or "][" is
+	  mapped to a non-standard function in Normal mode.  Thanks to Jan
+	  Larres for a patch.
 
 0.1.3	2013-02-04T23:00:23+09:00	  *textobj-function-c-changelog-0.1.3*
 	- Fix to select a right function if the cursor is placed on the last
