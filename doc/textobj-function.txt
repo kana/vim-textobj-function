@@ -177,6 +177,10 @@ BUGS						*textobj-function-bugs*
 ==============================================================================
 CHANGELOG					*textobj-function-changelog*
 
+0.1.4	2013-04-06T23:23:43+09:00	    *textobj-function-changelog-0.1.4*
+	- Fix a minor bug for filetype=c.
+	  See also |textobj-function-c-hangelog-0.1.4| for details.
+
 0.1.3	2013-02-04T22:58:30+09:00	    *textobj-function-changelog-0.1.3*
 	- Fix minor bugs.  See also
 	  |textobj-function-c-hangelog-0.1.3| and
