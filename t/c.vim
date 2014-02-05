@@ -29,6 +29,21 @@ function! s:paste_c_code()
   \   '  return 5;',
   \   '  return 6;',
   \   '}',
+  \   '',
+  \   'int OtherFoo(void) {',
+  \   '   return 7;',
+  \   '   return 8;',
+  \   '   return 9;',
+  \   '}',
+  \   '',
+  \   'int OtherFoo(',
+  \   '    int a,',
+  \   '    char b',
+  \   ') {',
+  \   '   return 7;',
+  \   '   return 8;',
+  \   '   return 9;',
+  \   '}'
   \ ]
   1 delete _
 endfunction
@@ -82,6 +97,22 @@ describe '<Plug>(textobj-function-a)'
     Expect line("'>") == 26
     Expect visualmode() ==# 'V'
   end
+
+  it 'works with alternative brace styles'
+    " With a one-line prototype
+    normal! 27G
+    execute 'normal' "vaf\<Esc>"
+    Expect line("'<") == 27
+    Expect line("'>") == 32
+    Expect visualmode() ==# 'V'
+
+    " With a more complex prototype
+    normal! 39G
+    execute 'normal' "vaf\<Esc>"
+    Expect line("'<") == 33
+    Expect line("'>") == 41
+    Expect visualmode() ==# 'V'
+  end
 end
 
 describe '<Plug>(textobj-function-i)'
@@ -131,6 +162,22 @@ describe '<Plug>(textobj-function-i)'
     execute 'normal' "vif\<Esc>"
     Expect line("'<") == 23
     Expect line("'>") == 25
+    Expect visualmode() ==# 'V'
+  end
+
+  it 'works with alternative brace styles'
+    " With a one-line prototype
+    normal! 28G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 29
+    Expect line("'>") == 31
+    Expect visualmode() ==# 'V'
+
+    " With a more complex prototype
+    normal! 39G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 38
+    Expect line("'>") == 40
     Expect visualmode() ==# 'V'
   end
 end
