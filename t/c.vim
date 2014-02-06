@@ -54,6 +54,22 @@ describe '<Plug>(textobj-function-a)'
     Expect line("'>") == 29
     Expect visualmode() ==# 'V'
   end
+
+  it 'recognizes functinos with alternative brace style'
+    " With a one-line prototype
+    normal! 34G
+    execute 'normal' "vaf\<Esc>"
+    Expect line("'<") == 31
+    Expect line("'>") == 36
+    Expect visualmode() ==# 'V'
+
+    " With a more complex prototype
+    normal! 44G
+    execute 'normal' "vaf\<Esc>"
+    Expect line("'<") == 38
+    Expect line("'>") == 46
+    Expect visualmode() ==# 'V'
+  end
 end
 
 describe '<Plug>(textobj-function-i)'
@@ -103,6 +119,22 @@ describe '<Plug>(textobj-function-i)'
     execute 'normal' "vif\<Esc>"
     Expect line("'<") == 26
     Expect line("'>") == 28
+    Expect visualmode() ==# 'V'
+  end
+
+  it 'recognizes functinos with alternative brace style'
+    " With a one-line prototype
+    normal! 34G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 33
+    Expect line("'>") == 35
+    Expect visualmode() ==# 'V'
+
+    " With a more complex prototype
+    normal! 44G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 43
+    Expect line("'>") == 45
     Expect visualmode() ==# 'V'
   end
 end

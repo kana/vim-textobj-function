@@ -71,11 +71,18 @@ power of textobj-function and does not provide any user interface.
 ==============================================================================
 BUGS						*textobj-function-c-bugs*
 
-- Assumption: C functions must be written in the following style:
+- Assumption: C functions must be written in one of the following styles:
 >
 	return-type
 	function-name(arg1, arg2, ..., argN)
 	{
+		...
+	}
+
+	/* OR */
+
+	return-type
+	function-name(arg1, arg2, ..., argN) {
 		...
 	}
 <
