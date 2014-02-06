@@ -101,6 +101,12 @@ BUGS						*textobj-function-c-bugs*
 ==============================================================================
 CHANGELOG					*textobj-function-c-changelog*
 
+0.1.5	2014-02-06T23:28:01+09:00	  *textobj-function-c-changelog-0.1.5*
+	- Support to select a function with alternative brace style such as: >
+	  	int
+		foo(void) {
+		  ...
+		}
 0.1.4	2013-04-06T23:25:21+09:00	  *textobj-function-c-changelog-0.1.4*
 	- Fix a bug that text objects don't work properly if "[[" or "][" is
 	  mapped to a non-standard function in Normal mode.  Thanks to Jan
