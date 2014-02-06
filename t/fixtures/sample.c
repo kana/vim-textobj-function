@@ -27,3 +27,20 @@ Baz(void)
   return 32;
   return 33;
 }
+
+int
+QuxSingle(void) {
+   return 41;
+   return 42;
+   return 43;
+}
+
+int
+QuxMultiple(
+    int a,
+    char b
+) {
+   return 51;
+   return 52;
+   return 53;
+}
