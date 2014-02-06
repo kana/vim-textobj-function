@@ -1,6 +1,7 @@
 static const foo = 10;
 
-int Foo(void)
+int
+Foo(void)
 {
   return 11;
   return 12;
@@ -9,7 +10,8 @@ int Foo(void)
 
   static const bar = 21;
 
-  int Bar(void)
+  int
+  Bar(void)
   {
     return 21;
     return 22;
@@ -18,7 +20,8 @@ int Foo(void)
 
 static const baz = 31;
 
-int Baz(void)
+int
+Baz(void)
 {
   return 31;
   return 32;
