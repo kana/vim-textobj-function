@@ -1,26 +1,26 @@
-static const foo = 0;
+static const foo = 10;
 
 int Foo(void)
 {
-  return 1;
-  return 2;
-  return 3;
+  return 11;
+  return 12;
+  return 13;
 }
 
-  static const bar = 1;
+  static const bar = 21;
 
   int Bar(void)
   {
-    return 4;
-    return 5;
-    return 6;
+    return 21;
+    return 22;
+    return 23;
   }
 
-static const baz = 1;
+static const baz = 31;
 
 int Baz(void)
 {
-  return 4;
-  return 5;
-  return 6;
+  return 31;
+  return 32;
+  return 33;
 }
