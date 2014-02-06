@@ -2,35 +2,7 @@ filetype plugin on
 runtime! plugin/textobj/function.vim
 
 function! s:paste_c_code()
-  put =[
-  \   'static const foo = 0;',
-  \   '',
-  \   'int Foo(void)',
-  \   '{',
-  \   '  return 1;',
-  \   '  return 2;',
-  \   '  return 3;',
-  \   '}',
-  \   '',
-  \   '  static const bar = 1;',
-  \   '',
-  \   '  int Bar(void)',
-  \   '  {',
-  \   '    return 4;',
-  \   '    return 5;',
-  \   '    return 6;',
-  \   '  }',
-  \   '',
-  \   'static const baz = 1;',
-  \   '',
-  \   'int Baz(void)',
-  \   '{',
-  \   '  return 4;',
-  \   '  return 5;',
-  \   '  return 6;',
-  \   '}',
-  \ ]
-  1 delete _
+  read t/fixtures/sample.c
 endfunction
 
 describe '<Plug>(textobj-function-a)'
@@ -47,8 +19,8 @@ describe '<Plug>(textobj-function-a)'
   it 'selects the next function if there is no function under the cursor'
     normal! 1G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 2
-    Expect line("'>") == 8
+    Expect line("'<") == 3
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
   end
 
@@ -56,30 +28,30 @@ describe '<Plug>(textobj-function-a)'
     " At the first line.
     normal! 3G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 2
-    Expect line("'>") == 8
+    Expect line("'<") == 3
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
 
     " At a middle line.
-    normal! 6G
+    normal! 7G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 2
-    Expect line("'>") == 8
+    Expect line("'<") == 3
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
 
     " At the last line.
-    normal! 8G
+    normal! 9G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 2
-    Expect line("'>") == 8
+    Expect line("'<") == 3
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
   end
 
   it 'does not recognize a function if it is deeply indented'
-    normal! 15G
+    normal! 17G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 20
-    Expect line("'>") == 26
+    Expect line("'<") == 23
+    Expect line("'>") == 29
     Expect visualmode() ==# 'V'
   end
 end
@@ -98,8 +70,8 @@ describe '<Plug>(textobj-function-i)'
   it 'selects the content of the next function if the cursor is not on one'
     normal! 1G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
   end
 
@@ -107,30 +79,30 @@ describe '<Plug>(textobj-function-i)'
     " At the first line.
     normal! 3G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
 
     " At a middle line.
-    normal! 6G
+    normal! 7G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
 
     " At the last line.
-    normal! 8G
+    normal! 9G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
   end
 
   it 'does not recognize a function if it is deeply indented'
-    normal! 15G
+    normal! 17G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 23
-    Expect line("'>") == 25
+    Expect line("'<") == 26
+    Expect line("'>") == 28
     Expect visualmode() ==# 'V'
   end
 end
