@@ -29,14 +29,15 @@ if !exists('*g:textobj_function_java_select')
     endfunction
 
     function! s:select_a()
-        if getline('.') != '}'
-            normal! ]M
+        if getline('.') =~# '}'
+            normal! k
         endif
+        normal! ]M0
         let e = getpos('.')
 
         normal! [m
         call search(')', 'bW')
-        normal! %0k
+        normal! %0
         let b = getpos('.')
 
         if 1 < e[1] - b[1]  " is there some code?
