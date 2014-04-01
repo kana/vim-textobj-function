@@ -1,4 +1,4 @@
-*textobj-function.txt*	Text object for a function
+*textobj-function.txt*	Text objects for functions
 
 Version 0.1.5
 Script ID: 2619
@@ -40,26 +40,30 @@ Changelog		|textobj-function-changelog|
 ==============================================================================
 INTRODUCTION					*textobj-function-introduction*
 
-*textobj-function* is a Vim plugin to provide universal text objects for
-various kinds of functions.  For example, you can select any function with
-|<Plug>(textobj-function-a)| / |<Plug>(textobj-function-i)| (default key
-bindings: af / if).
+*textobj-function* is a Vim plugin to text objects for functions.  You can
+directly target a function (|af|) or the code inside a function (|if|).
+For example,
 
-The definition of a "function" is usually differed depending on what you are
-editing, so at first, you have to tell the definition of what kind of function
-you want to select to textobj-function.  By default, textobj-function knows
-about functions in the following languages:
+- `daf` to Delete A Function, and
+- `vif` to Visually select the code Inside a Function.
+
+The syntax of a "function" is varied for each language.  So that you have to
+tell the syntax of a function to textobj-function before editing.  By default,
+the following languages are supported:
 					    *textobj-function-known-languages*
 - C language		|textobj-function-c|
 - Vim script		|textobj-function-vim|
 
-If you want to tell about more functions in other languages, see
-|textobj-function-customizing| for how to tell and
-after/ftplugin/*/textobj-function.vim for the samples.
+To support more languages, see:
+
+- |textobj-function-support-new-languages| for API, and
+- after/ftplugin/*/textobj-function.vim bundled with this plugin for examples.
+
 
 Requirements:
 - Vim 7.2 or later
 - |textobj-user| 0.3.7 or later (vimscript#2100)
+  https://github.com/kana/vim-textobj-user
 
 Installation:
 - Recommended way: Use vim-flavor <https://github.com/kana/vim-flavor>.
