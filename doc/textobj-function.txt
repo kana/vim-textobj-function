@@ -30,7 +30,7 @@ Introduction		|textobj-function-introduction|
 Interface		|textobj-function-interface|
   Key Mappings		  |textobj-function-key-mappings|
 Support New Languages	|textobj-function-support-new-languages|
-Bugs			|textobj-function-bugs|
+Known Issues		|textobj-function-known-issues|
 Changelog		|textobj-function-changelog|
 
 
@@ -179,11 +179,12 @@ b:textobj_function_select			*b:textobj_function_select*
 
 
 ==============================================================================
-BUGS						*textobj-function-bugs*
+KNOWN ISSUES				       *textobj-function-known-issues*
 
-- See |textobj-user-bugs| for further information.
+- See also |textobj-user-known-issues|.
 
-- Please report me if you find any bug not described above.
+- If you have any suggestion, please let me know via
+  https://github.com/kana/vim-textobj-user/issues
 
 
 
