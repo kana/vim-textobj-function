@@ -29,7 +29,7 @@ CONTENTS					*textobj-function-contents*
 Introduction		|textobj-function-introduction|
 Interface		|textobj-function-interface|
   Key Mappings		  |textobj-function-key-mappings|
-API			|textobj-function-api|
+Support New Languages	|textobj-function-support-new-languages|
 Bugs			|textobj-function-bugs|
 Changelog		|textobj-function-changelog|
 
@@ -53,7 +53,7 @@ the following languages are supported:
 - C language		|textobj-function-c|
 - Vim script		|textobj-function-vim|
 
-To support more languages, see:
+To support new languages, see:
 
 - |textobj-function-support-new-languages| for API, and
 - after/ftplugin/*/textobj-function.vim bundled with this plugin for examples.
@@ -128,26 +128,37 @@ modes.
 
 
 ==============================================================================
-API						*textobj-function-api*
+SUPPORT NEW LANGUAGES		      *textobj-function-support-new-languages*
 
-textobj-function uses the following function to know the range to select
-a function which is appropriate for the current buffer.  See
-after/ftplugin/*/textobj-function.vim in the archives of textobj-function for
-examples.
+To support a new language, you have to
 
-b:textobj_function_select({object-type})	*b:textobj_function_select()*
-		Return a list to indicate the range to select a function.  If
-		there is no function to select, return 0 instead.
+* Add a filetype plugin.
+  Recommended path: after/ftplugin/{filetype}/textobj-function.vim
+* Define |b:textobj_function_select| in the filetype plugin.
 
-		{object-type} specifies the type of object to select.  This
-		can be one of the following values:
+See also after/ftplugin/{filetype}/textobj-funtion.vim bundled with this
+plugin for the real world examples.
+
+
+b:textobj_function_select			*b:textobj_function_select*
+		A |Funcref| to a function which returns a range of a function
+		or the code inside a function.  This function will be called
+		whenever user types |af| and |if|.
+
+		This function takes a single argument which specifies the type
+		of an object.  This can be one of the following values:
 
 			Value	Meaning		~
 			----------------------- ~
 			'a'	"a function"
 			'i'	"inner function"
 
-		The detail of a list to return is as follows:
+		This function returns:
+
+		- A list to indicate the range of an object, or
+		- 0 if there is no function to target.
+
+		The list must have the following 3 elements:
 >
 			[{*wise}, {start-position}, {end-position}]
 <
@@ -205,8 +216,8 @@ CHANGELOG					*textobj-function-changelog*
 	- Rename the name of this plugin as textobj-function.  The old name is
 	  tofunc and it's not clear to indicate what this plugin does.
 	- Change to use |textobj-user| instead of its own framework.
-	- Change the API.  See |textobj-function-api| for the details.  It is
-	  now incompatible with old versions.
+	- Change the API.  See |textobj-function-support-new-languages| for
+	  the details.  It is now incompatible with old versions.
 	- Add documents for sample scripts.
 	  See |textobj-function-known-languages|.
 
