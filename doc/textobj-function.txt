@@ -29,7 +29,6 @@ CONTENTS					*textobj-function-contents*
 Introduction		|textobj-function-introduction|
 Interface		|textobj-function-interface|
   Key Mappings		  |textobj-function-key-mappings|
-Customizing		|textobj-function-customizing|
 API			|textobj-function-api|
 Bugs			|textobj-function-bugs|
 Changelog		|textobj-function-changelog|
@@ -83,9 +82,30 @@ INTERFACE					*textobj-function-interface*
 ------------------------------------------------------------------------------
 KEY MAPPINGS				       *textobj-function-key-mappings*
 
-In visual mode and operator-pending mode, the following text objects are
-available.  Note that the fllowing key mappings will not be defined when its
-{lhs} is already mapped.
+DEFAULT KEY MAPPINGS		       *textobj-function-default-key-mappings*
+
+The following key mappings are defined in Visual mode and Operator-pending
+mode:
+
+	{lhs}	{rhs}				~
+	-----	---------------------------	~
+	*af*	<Plug>(textobj-function-a)
+	*if*	<Plug>(textobj-function-i)
+
+				  *g:textobj_function_no_default_key_mappings*
+If you don't need these key mappings, define a global variable
+|g:textobj_function_no_default_key_mappings| before this plugin is loaded
+(typically in your |vimrc|).
+
+					  *:TextobjFunctionDefaultKeyMappings*
+You can also use |:TextobjFunctionDefaultKeyMappings| to redefine these key
+mappings.  This command doesn't override existing {lhs}s unless [!] is given.
+
+
+NAMED KEY MAPPINGS			*textobj-function-named-key-mappings*
+
+The following key mappings are defined in Visual, Select and Operator-pending
+modes.
 
 
 <Plug>(textobj-function-a)			*<Plug>(textobj-function-a)*
@@ -94,36 +114,15 @@ available.  Note that the fllowing key mappings will not be defined when its
 			be |characterwise| or |blockwise| depending on what
 			function is being selected.
 
-			Note that unlike built-in text objects, "a function"
-			doesn't include leading or trailing blanks and/or
-			blank lines.  This problem will be fixed in the near
-			future - by adding another text object.
+			Note that this text object doesn't include leading and
+			trailing spaces.  Because this text object is similar
+			to |ab|, |at|, and etc rather than |aw|, |ap|, etc.
 
 <Plug>(textobj-function-i)			*<Plug>(textobj-function-i)*
 			"inner function" - Like |<Plug>(textobj-function-a)|,
 			but select the body of a function, other parts of
 			a function are not included e.g. its name, its
 			arguments and so forth).
-
-
-
-
-==============================================================================
-CUSTOMIZING					*textobj-function-customizing*
-
-				  *g:textobj_function_no_default_key_mappings*
-					  *:TextobjFunctionDefaultKeyMappings*
-This plugin will define the following key mappings in Visual mode and
-Operator-pending mode automatically.  If you don't want these key mappings,
-define |g:textobj_function_no_default_key_mappings| before this plugin is
-loaded (e.g. in your |vimrc|).  You can also use
-|:TextobjFunctionDefaultKeyMappings| to redefine these key mappings.  This
-command doesn't override existing {lhs}s unless [!] is given.
-
-	{lhs}	{rhs}				~
-	-----	---------------------------	~
-	af	<Plug>(textobj-function-a)
-	if	<Plug>(textobj-function-i)
 
 
 
