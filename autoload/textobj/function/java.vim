@@ -62,7 +62,11 @@ function! s:select_i()
   normal! k$
   let ie = getpos('.')
 
-  return ['V', ib, ie]
+  if 0 <= ie[1] - ib[1]  " is there some code?
+    return ['V', ib, ie]
+  else
+    return 0
+  endif
 endfunction
 
 " __END__  "{{{1
