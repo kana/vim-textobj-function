@@ -1,6 +1,6 @@
 *textobj-function.txt*	Text objects for functions
 
-Version 0.1.5
+Version 0.2.0
 Script ID: 2619
 Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
 License: MIT license  {{{
@@ -273,6 +273,12 @@ KNOWN ISSUES				       *textobj-function-known-issues*
 
 ==============================================================================
 CHANGELOG					*textobj-function-changelog*
+
+0.2.0	2014-04-02T23:20:30+09:00	    *textobj-function-changelog-0.2.0*
+	- Add Java support.  See also |textobj-function-java|.  Thanks to Jan
+	  Larres for the patch.
+	- Revise the internal structure.  Loading time is a bit reduced.
+	- Revise the document.
 
 0.1.5	2014-02-06T23:25:52+09:00	    *textobj-function-changelog-0.1.5*
 	- C: Support functions with alternative brace style such as: >
