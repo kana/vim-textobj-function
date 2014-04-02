@@ -53,6 +53,7 @@ function! s:select_i()
   endif
 
   let [_, ab, ae] = range
+
   call setpos('.', ab)
   call search('{', 'W')
   normal! j0
