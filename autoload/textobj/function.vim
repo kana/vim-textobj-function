@@ -1,6 +1,6 @@
 " textobj-function - Text objects for functions
 " Version: 0.1.5
-" Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
+" Copyright (C) 2014 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -22,24 +22,19 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 
-if exists('g:loaded_textobj_function')
-  finish
-endif
+function! s:select(object_type)
+  return exists('b:textobj_function_select')
+  \      ? b:textobj_function_select(a:object_type)
+  \      : 0
+endfunction
 
+function! textobj#function#select_a()
+  return s:select('a')
+endfunction
 
+function! textobj#function#select_i()
+  return s:select('i')
+endfunction
 
-
-call textobj#user#plugin('function', {
-\      '-': {
-\        'select-a': 'af',  'select-a-function': 'textobj#function#select_a',
-\        'select-i': 'if',  'select-i-function': 'textobj#function#select_i',
-\      }
-\    })
-
-
-
-
-let g:loaded_textobj_function = 1
-
-" __END__
+" __END__  "{{{1
 " vim: foldmethod=marker
