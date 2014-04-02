@@ -1,6 +1,6 @@
-" Vim additional ftplugin: vim/textobj-function
-" Version 0.1.5
-" Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
+" textobj-function - Text objects for functions
+" Version: 0.1.5
+" Copyright (C) 2014 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -22,20 +22,52 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 
+let s:BEGINNING_PATTERN = '^\s*fu\%[nction]\>'
+let s:END_PATTERN = '^\s*endf\%[unction]\>'
 
+function! textobj#function#vim#select(object_type)
+  return s:select_{a:object_type}()
+endfunction
 
+function! s:select_a()
+  if getline('.') !~# s:END_PATTERN
+    if searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'W') <= 0
+      " The cursor seems not to be placed on any function.
+      return 0
+    endif
+  endif
+  normal! $
+  let e = getpos('.')
+  normal! 0
+  call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'bW')
+  let b = getpos('.')
 
-let b:textobj_function_select = function('textobj#function#vim#select')
+  if b != e
+    return ['V', b, e]
+  else
+    return 0
+  endif
+endfunction
 
+function! s:select_i()
+  let range = s:select_a()
+  if type(range) == type(0)
+    return 0
+  endif
 
+  let [__unused__wise, b, e] = range
+  if 1 < e[1] - b[1]  " is there some code?
+    call setpos('.', b)
+    normal! j0
+    let b = getpos('.')
+    call setpos('.', e)
+    normal! k$
+    let e = getpos('.')
+    return ['V', b, e]
+  else
+    return 0
+  endif
+endfunction
 
-
-if exists('b:undo_ftplugin')
-  let b:undo_ftplugin .= '|'
-else
-  let b:undo_ftplugin = ''
-endif
-let b:undo_ftplugin .= 'unlet b:textobj_function_select'
-
-" __END__
+" __END__  "{{{1
 " vim: foldmethod=marker
