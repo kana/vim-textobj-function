@@ -24,7 +24,7 @@ describe '<Plug>(textobj-function-a)'
     Expect visualmode() ==# 'V'
   end
 
-  it 'selects the function under the cursor'
+  it 'selects the method under the cursor'
     " At the first line.
     normal! 4G
     execute 'normal' "vaf\<Esc>"
@@ -103,7 +103,7 @@ describe '<Plug>(textobj-function-i)'
     Expect visualmode() ==# 'V'
   end
 
-  it 'selects the function under the cursor'
+  it 'selects the method under the cursor'
     " At the first line.
     normal! 4G
     execute 'normal' "vif\<Esc>"
