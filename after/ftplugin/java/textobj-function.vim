@@ -1,6 +1,6 @@
 " Vim additional ftplugin: java/textobj-function
 " Version: 0.1.5
-" Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
+" Copyright (C) 2014 Kana Natsuno <http://whileimautomaton.net/>
 "               2013-2014 Jan Larres <jan@majutsushi.net>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
