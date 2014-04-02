@@ -32,7 +32,7 @@ endif
 call textobj#user#plugin('function', {
 \      '-': {
 \        'select-a': 'af',  '*select-a-function*': 'textobj#function#select_a',
-\        'select-i': 'if',  '*select-i-function*': 'textobj#function#select_i'
+\        'select-i': 'if',  '*select-i-function*': 'textobj#function#select_i',
 \      }
 \    })
 
