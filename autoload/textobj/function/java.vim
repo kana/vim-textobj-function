@@ -48,7 +48,7 @@ endfunction
 
 function! s:select_i()
   let range = s:select_a()
-  if type(range) == type(0)
+  if range is 0
     return 0
   endif
 
