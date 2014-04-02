@@ -31,7 +31,7 @@ function! s:select_a()
   if getline('.') =~# '}'
     normal! k
   endif
-  normal! ]M0
+  normal! ]M$
   let e = getpos('.')
 
   normal! [m
