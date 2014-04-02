@@ -52,6 +52,7 @@ tell the syntax of a function to textobj-function before editing.  By default,
 the following languages are supported:
 					    *textobj-function-known-languages*
 - C language		|textobj-function-c|
+- Java			|textobj-function-java|
 - Vim script		|textobj-function-vim|
 
 To support new languages, see:
@@ -156,6 +157,37 @@ C LANGUAGE					*textobj-function-c*
 
 - If the cursor is between two functions, the next function will be selected.
 
+
+------------------------------------------------------------------------------
+JAVA						*textobj-function-java*
+
+- Since Java does not have functions, |af| and |if| actually targets methods.
+
+- Lines may be broken before "{".  For example:
+>
+	Foo makeFoo() {
+	  ...
+	}
+
+	Foo makeFoo()
+	{
+	  ...
+	}
+<
+- Lines may be broken in argument lists.  For example:
+>
+	Foo makeFoo(Bar bar,
+	            Baz baz) {
+	  ...
+	}
+
+	Foo makeFoo(
+	  Bar bar,
+	  Baz baz
+	) {
+	  ...
+	}
+<
 
 ------------------------------------------------------------------------------
 VIM SCRIPT					*textobj-function-vim*
