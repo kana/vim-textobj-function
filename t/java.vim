@@ -96,6 +96,14 @@ describe '<Plug>(textobj-function-a)'
     Expect line("'>") == 68
     Expect visualmode() ==# 'V'
   end
+
+  it 'fails if there is no appropriate method'
+    normal! 76G
+    execute 'normal' "vaf\<Esc>"
+    Expect line("'<") == 76
+    Expect line("'>") == 76
+    Expect visualmode() ==# 'v'
+  end
 end
 
 describe '<Plug>(textobj-function-i)'
@@ -188,5 +196,27 @@ describe '<Plug>(textobj-function-i)'
     Expect line("'<") == 65
     Expect line("'>") == 67
     Expect visualmode() ==# 'V'
+  end
+
+  it 'fails if the target method does not contain any code'
+    normal! 70G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 70
+    Expect line("'>") == 70
+    Expect visualmode() ==# 'v'
+
+    normal! 74G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 74
+    Expect line("'>") == 74
+    Expect visualmode() ==# 'v'
+  end
+
+  it 'fails if there is no appropriate method'
+    normal! 76G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 76
+    Expect line("'>") == 76
+    Expect visualmode() ==# 'v'
   end
 end
