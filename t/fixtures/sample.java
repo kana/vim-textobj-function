@@ -1,16 +1,19 @@
 class Test {
   int var = 0;
 
-  int foo2(Foo bar) {
+  int foo2(Foo bar)
+  {
     return 42;
     return 42;
     return 42;
   }
 
-  int foo3(Foo bar) {
+  int foo3(Foo bar)
+  {
     return 42;
 
-    if (true) {
+    if (true)
+    {
       return 42;
     }
 
@@ -24,8 +27,7 @@ class Test {
     return 42;
   }
 
-  private List<String> baz(Foo bar,
-                           Foo baz) {
+  String bar(Foo bar) {
     return 42;
     return 42;
     return 42;
@@ -33,6 +35,23 @@ class Test {
 
   int blah(Foo bar,
            Foo baz)
+  {
+    return 42;
+    return 42;
+    return 42;
+  }
+
+  private List<String> baz(Foo bar,
+                           Foo baz) {
+    return 42;
+    return 42;
+    return 42;
+  }
+
+  int qux(
+      Foo bar,
+      Foo baz
+  )
   {
     return 42;
     return 42;

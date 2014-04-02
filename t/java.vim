@@ -20,7 +20,7 @@ describe '<Plug>(textobj-function-a)'
     normal! 2G
     execute 'normal' "vaf\<Esc>"
     Expect line("'<") == 4
-    Expect line("'>") == 8
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
   end
 
@@ -29,57 +29,71 @@ describe '<Plug>(textobj-function-a)'
     normal! 4G
     execute 'normal' "vaf\<Esc>"
     Expect line("'<") == 4
-    Expect line("'>") == 8
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
 
     " At a middle line.
-    normal! 6G
+    normal! 7G
     execute 'normal' "vaf\<Esc>"
     Expect line("'<") == 4
-    Expect line("'>") == 8
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
 
     " At the last line.
-    normal! 8G
+    normal! 9G
     execute 'normal' "vaf\<Esc>"
     Expect line("'<") == 4
-    Expect line("'>") == 8
+    Expect line("'>") == 9
     Expect visualmode() ==# 'V'
   end
 
   it 'ignores non-method blocks'
-    normal! 14G
+    normal! 17G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 10
-    Expect line("'>") == 18
+    Expect line("'<") == 11
+    Expect line("'>") == 21
     Expect visualmode() ==# 'V'
   end
 
-  it 'recognizes methods with alternative brace styles'
-    " With a one-line prototype
-    normal! 23G
+  it 'recognizes methods with one-line prototypes'
+    normal! 26G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 20
-    Expect line("'>") == 25
+    Expect line("'<") == 23
+    Expect line("'>") == 28
     Expect visualmode() ==# 'V'
 
-    " With a more complex prototype
-    normal! 30G
+    normal! 32G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 27
-    Expect line("'>") == 32
+    Expect line("'<") == 30
+    Expect line("'>") == 34
     Expect visualmode() ==# 'V'
+  end
 
-    normal! 38G
+  it 'recognizes methods with argument lists over multiple lines'
+    normal! 40G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 34
-    Expect line("'>") == 40
+    Expect line("'<") == 36
+    Expect line("'>") == 42
     Expect visualmode() ==# 'V'
 
     normal! 47G
     execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 42
+    Expect line("'<") == 44
     Expect line("'>") == 49
+    Expect visualmode() ==# 'V'
+  end
+
+  it 'recognizes methods with argument lists placed after method name lines'
+    normal! 57G
+    execute 'normal' "vaf\<Esc>"
+    Expect line("'<") == 51
+    Expect line("'>") == 59
+    Expect visualmode() ==# 'V'
+
+    normal! 66G
+    execute 'normal' "vaf\<Esc>"
+    Expect line("'<") == 61
+    Expect line("'>") == 68
     Expect visualmode() ==# 'V'
   end
 end
@@ -98,8 +112,8 @@ describe '<Plug>(textobj-function-i)'
   it 'selects the next method if there is no method under the cursor'
     normal! 2G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
   end
 
@@ -107,58 +121,72 @@ describe '<Plug>(textobj-function-i)'
     " At the first line.
     normal! 4G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
 
     " At a middle line.
-    normal! 6G
+    normal! 7G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
 
     " At the last line.
-    normal! 8G
+    normal! 9G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 5
-    Expect line("'>") == 7
+    Expect line("'<") == 6
+    Expect line("'>") == 8
     Expect visualmode() ==# 'V'
   end
 
   it 'ignores non-method blocks'
-    normal! 14G
+    normal! 17G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 11
-    Expect line("'>") == 17
+    Expect line("'<") == 13
+    Expect line("'>") == 20
     Expect visualmode() ==# 'V'
   end
 
-  it 'recognizes methods with alternative brace styles'
-    " With a one-line prototype
-    normal! 23G
+  it 'recognizes methods with one-line prototypes'
+    normal! 26G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 22
-    Expect line("'>") == 24
+    Expect line("'<") == 25
+    Expect line("'>") == 27
     Expect visualmode() ==# 'V'
 
-    " With a more complex prototype
-    normal! 30G
+    normal! 32G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 29
-    Expect line("'>") == 31
+    Expect line("'<") == 31
+    Expect line("'>") == 33
     Expect visualmode() ==# 'V'
+  end
 
-    normal! 38G
+  it 'recognizes methods with argument lists over multiple lines'
+    normal! 40G
     execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 37
-    Expect line("'>") == 39
+    Expect line("'<") == 39
+    Expect line("'>") == 41
     Expect visualmode() ==# 'V'
 
     normal! 47G
     execute 'normal' "vif\<Esc>"
     Expect line("'<") == 46
     Expect line("'>") == 48
+    Expect visualmode() ==# 'V'
+  end
+
+  it 'recognizes methods with argument lists placed after method name lines'
+    normal! 57G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 56
+    Expect line("'>") == 58
+    Expect visualmode() ==# 'V'
+
+    normal! 66G
+    execute 'normal' "vif\<Esc>"
+    Expect line("'<") == 65
+    Expect line("'>") == 67
     Expect visualmode() ==# 'V'
   end
 end
