@@ -53,20 +53,16 @@ function! s:select_i()
   endif
 
   let [__unused, b, e] = range
-  if 1 < e[1] - b[1]  " is there some code?
-    call setpos('.', b)
-    call search('{', 'W')
-    normal! j0
-    let b = getpos('.')
+  call setpos('.', b)
+  call search('{', 'W')
+  normal! j0
+  let b = getpos('.')
 
-    call setpos('.', e)
-    normal! k$
-    let e = getpos('.')
+  call setpos('.', e)
+  normal! k$
+  let e = getpos('.')
 
-    return ['V', b, e]
-  else
-    return 0
-  endif
+  return ['V', b, e]
 endfunction
 
 " __END__  "{{{1
