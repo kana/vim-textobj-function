@@ -52,17 +52,17 @@ function! s:select_i()
     return 0
   endif
 
-  let [__unused, b, e] = range
-  call setpos('.', b)
+  let [_, ab, ae] = range
+  call setpos('.', ab)
   call search('{', 'W')
   normal! j0
-  let b = getpos('.')
+  let ib = getpos('.')
 
-  call setpos('.', e)
+  call setpos('.', ae)
   normal! k$
-  let e = getpos('.')
+  let ie = getpos('.')
 
-  return ['V', b, e]
+  return ['V', ib, ie]
 endfunction
 
 " __END__  "{{{1
