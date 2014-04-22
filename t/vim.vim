@@ -2,22 +2,13 @@ filetype plugin on
 runtime! plugin/textobj/function.vim
 
 function! s:paste_vim_code()
-  put =[
-  \   'let Foo = 0',
-  \   'function Foo()',
-  \   '  return 1',
-  \   '  return 2',
-  \   '  return 3',
-  \   'endfunction',
-  \   '',
-  \   '  let Bar = 0',
-  \   '  function Bar()',
-  \   '    return 4',
-  \   '    return 5',
-  \   '    return 6',
-  \   '  endfunction',
-  \ ]
-  1 delete _
+  read t/fixtures/sample.vim
+endfunction
+
+function! Select(line_number, object)
+  call cursor(a:line_number, 0)
+  execute 'normal' 'v'.a:object."\<Esc>"
+  return [visualmode(), line("'<"), line("'>")]
 endfunction
 
 describe '<Plug>(textobj-function-a)'
@@ -32,42 +23,28 @@ describe '<Plug>(textobj-function-a)'
   end
 
   it 'fails if the cursor is not in a function'
-    normal! 1G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 1
-    Expect line("'>") == 1
-    Expect visualmode() ==# 'v'
+    Expect Select(1, 'af') ==# ['v', 1, 1]
+    Expect Select(7, 'if') ==# ['v', 7, 7]
   end
 
   it 'selects the function under the cursor'
     " At the first line.
-    normal! 2G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 2
-    Expect line("'>") == 6
-    Expect visualmode() ==# 'V'
+    Expect Select(2, 'af') ==# ['V', 2, 6]
 
     " At a middle line.
-    normal! 4G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 2
-    Expect line("'>") == 6
-    Expect visualmode() ==# 'V'
+    Expect Select(4, 'af') ==# ['V', 2, 6]
 
     " At the last line.
-    normal! 6G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 2
-    Expect line("'>") == 6
-    Expect visualmode() ==# 'V'
+    Expect Select(6, 'af') ==# ['V', 2, 6]
   end
 
   it 'recognizes a function even if it is deeply indented'
-    normal! 11G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 9
-    Expect line("'>") == 13
-    Expect visualmode() ==# 'V'
+    Expect Select(11, 'af') ==# ['V', 9, 13]
+  end
+
+  it 'can select a function without code'
+    Expect Select(15, 'af') ==# ['V', 15, 16]
+    Expect Select(16, 'af') ==# ['V', 15, 16]
   end
 end
 
@@ -83,41 +60,27 @@ describe '<Plug>(textobj-function-i)'
   end
 
   it 'fails if the cursor is not in a function'
-    normal! 1G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 1
-    Expect line("'>") == 1
-    Expect visualmode() ==# 'v'
+    Expect Select(1, 'if') ==# ['v', 1, 1]
+    Expect Select(7, 'if') ==# ['v', 7, 7]
   end
 
   it 'selects the content of the function under the cursor'
     " At the first line.
-    normal! 2G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 3
-    Expect line("'>") == 5
-    Expect visualmode() ==# 'V'
+    Expect Select(2, 'if') ==# ['V', 3, 5]
 
     " At a middle line.
-    normal! 4G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 3
-    Expect line("'>") == 5
-    Expect visualmode() ==# 'V'
+    Expect Select(4, 'if') ==# ['V', 3, 5]
 
     " At the last line.
-    normal! 6G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 3
-    Expect line("'>") == 5
-    Expect visualmode() ==# 'V'
+    Expect Select(6, 'if') ==# ['V', 3, 5]
   end
 
   it 'recognizes a function even if it is deeply indented'
-    normal! 11G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 10
-    Expect line("'>") == 12
-    Expect visualmode() ==# 'V'
+    Expect Select(11, 'if') ==# ['V', 10, 12]
+  end
+
+  it 'cannot select a function without code'
+    Expect Select(15, 'if') ==# ['v', 15, 15]
+    Expect Select(16, 'if') ==# ['v', 16, 16]
   end
 end

@@ -51,22 +51,22 @@ endfunction
 
 function! s:select_i()
   let range = s:select_a()
-  if type(range) == type(0)
+  if range is 0
     return 0
   endif
 
-  let [__unused__wise, b, e] = range
-  if 1 < e[1] - b[1]  " is there some code?
-    call setpos('.', b)
-    normal! j0
-    let b = getpos('.')
-    call setpos('.', e)
-    normal! k$
-    let e = getpos('.')
-    return ['V', b, e]
-  else
+  let [_, ba, ea] = range
+  if ea[1] - ba[1] <= 1  " The function doesn't contain any code.
     return 0
   endif
+
+  call setpos('.', ba)
+  normal! j0
+  let bi = getpos('.')
+  call setpos('.', ea)
+  normal! k$
+  let ei = getpos('.')
+  return ['V', bi, ei]
 endfunction
 
 " __END__  "{{{1
