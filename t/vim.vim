@@ -2,22 +2,7 @@ filetype plugin on
 runtime! plugin/textobj/function.vim
 
 function! s:paste_vim_code()
-  put =[
-  \   'let Foo = 0',
-  \   'function Foo()',
-  \   '  return 1',
-  \   '  return 2',
-  \   '  return 3',
-  \   'endfunction',
-  \   '',
-  \   '  let Bar = 0',
-  \   '  function Bar()',
-  \   '    return 4',
-  \   '    return 5',
-  \   '    return 6',
-  \   '  endfunction',
-  \ ]
-  1 delete _
+  read t/fixtures/sample.vim
 endfunction
 
 describe '<Plug>(textobj-function-a)'
