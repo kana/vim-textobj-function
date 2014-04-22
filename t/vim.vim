@@ -24,6 +24,7 @@ describe '<Plug>(textobj-function-a)'
 
   it 'fails if the cursor is not in a function'
     Expect Select(1, 'af') ==# ['v', 1, 1]
+    Expect Select(7, 'if') ==# ['v', 7, 7]
   end
 
   it 'selects the function under the cursor'
@@ -60,6 +61,7 @@ describe '<Plug>(textobj-function-i)'
 
   it 'fails if the cursor is not in a function'
     Expect Select(1, 'if') ==# ['v', 1, 1]
+    Expect Select(7, 'if') ==# ['v', 7, 7]
   end
 
   it 'selects the content of the function under the cursor'
