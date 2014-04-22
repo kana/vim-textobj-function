@@ -55,15 +55,15 @@ function! s:select_i()
     return 0
   endif
 
-  let [__unused__wise, b, e] = range
-  if 1 < e[1] - b[1]  " is there some code?
-    call setpos('.', b)
+  let [_, ba, ea] = range
+  if 1 < ea[1] - ba[1]  " is there some code?
+    call setpos('.', ba)
     normal! j0
-    let b = getpos('.')
-    call setpos('.', e)
+    let bi = getpos('.')
+    call setpos('.', ea)
     normal! k$
-    let e = getpos('.')
-    return ['V', b, e]
+    let ei = getpos('.')
+    return ['V', bi, ei]
   else
     return 0
   endif
