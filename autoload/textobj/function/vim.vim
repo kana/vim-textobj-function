@@ -22,16 +22,22 @@
 "     SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 " }}}
 
-let s:BEGINNING_PATTERN = '^\s*fu\%[nction]\>'
-let s:END_PATTERN = '^\s*endf\%[unction]\>'
+let s:FUNCTION_PATTERNS = {
+\   'begin': '^\s*fu\%[nction]\>',
+\   'end': '^\s*endf\%[unction]\>',
+\ }
 
 function! textobj#function#vim#select(object_type)
   return s:select_{a:object_type}()
 endfunction
 
 function! s:select_a()
-  if getline('.') !~# s:END_PATTERN
-    if searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'W') <= 0
+  return s:select_a_of(s:FUNCTION_PATTERNS)
+endfunction
+
+function! s:select_a_of(patterns)
+  if getline('.') !~# a:patterns.end
+    if searchpair(a:patterns.begin, '', a:patterns.end, 'W') <= 0
       " The cursor seems not to be placed on any function.
       return 0
     endif
@@ -39,7 +45,7 @@ function! s:select_a()
   normal! $
   let e = getpos('.')
   normal! 0
-  call searchpair(s:BEGINNING_PATTERN, '', s:END_PATTERN, 'bW')
+  call searchpair(a:patterns.begin, '', a:patterns.end, 'bW')
   let b = getpos('.')
 
   if b != e
