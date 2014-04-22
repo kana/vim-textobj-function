@@ -56,17 +56,17 @@ function! s:select_i()
   endif
 
   let [_, ba, ea] = range
-  if 1 < ea[1] - ba[1]  " is there some code?
-    call setpos('.', ba)
-    normal! j0
-    let bi = getpos('.')
-    call setpos('.', ea)
-    normal! k$
-    let ei = getpos('.')
-    return ['V', bi, ei]
-  else
+  if ea[1] - ba[1] <= 1  " The function doesn't contain any code.
     return 0
   endif
+
+  call setpos('.', ba)
+  normal! j0
+  let bi = getpos('.')
+  call setpos('.', ea)
+  normal! k$
+  let ei = getpos('.')
+  return ['V', bi, ei]
 endfunction
 
 " __END__  "{{{1
