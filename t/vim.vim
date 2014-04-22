@@ -40,6 +40,11 @@ describe '<Plug>(textobj-function-a)'
   it 'recognizes a function even if it is deeply indented'
     Expect Select(11, 'af') ==# ['V', 9, 13]
   end
+
+  it 'can select a function without code'
+    Expect Select(15, 'af') ==# ['V', 15, 16]
+    Expect Select(16, 'af') ==# ['V', 15, 16]
+  end
 end
 
 describe '<Plug>(textobj-function-i)'
@@ -70,5 +75,10 @@ describe '<Plug>(textobj-function-i)'
 
   it 'recognizes a function even if it is deeply indented'
     Expect Select(11, 'if') ==# ['V', 10, 12]
+  end
+
+  it 'cannot select a function without code'
+    Expect Select(15, 'if') ==# ['v', 15, 15]
+    Expect Select(16, 'if') ==# ['v', 16, 16]
   end
 end

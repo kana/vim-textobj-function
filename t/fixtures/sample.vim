@@ -11,3 +11,6 @@ endfunction
     return 5
     return 6
   endfunction
+
+function! Baz()
+endfunction
