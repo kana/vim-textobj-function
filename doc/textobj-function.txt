@@ -279,6 +279,9 @@ KNOWN ISSUES				       *textobj-function-known-issues*
 ==============================================================================
 CHANGELOG					*textobj-function-changelog*
 
+0.3.0	2014-04-23T22:40:01+09:00	    *textobj-function-changelog-0.3.0*
+	- Vim script: Support also |vspec|-specific syntax.
+
 0.2.0	2014-04-02T23:20:30+09:00	    *textobj-function-changelog-0.2.0*
 	- Add Java support.  See also |textobj-function-java|.  Thanks to Jan
 	  Larres for the patch.
