@@ -6,7 +6,7 @@ function! s:paste_vim_code()
 endfunction
 
 function! Select(line_number, object)
-  call cursor(a:line_number, 0)
+  call cursor(a:line_number, 1)
   execute 'normal' 'v'.a:object."\<Esc>"
   return [visualmode(), line("'<"), line("'>")]
 endfunction
