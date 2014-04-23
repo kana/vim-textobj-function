@@ -1,5 +1,5 @@
 " textobj-function - Text objects for functions
-" Version: 0.2.0
+" Version: 0.3.0
 " Copyright (C) 2014 Kana Natsuno <http://whileimautomaton.net/>
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
