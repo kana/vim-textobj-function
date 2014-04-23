@@ -54,6 +54,7 @@ the following languages are supported:
 - C language		|textobj-function-c|
 - Java			|textobj-function-java|
 - Vim script		|textobj-function-vim|
+  (including |vspec|-specific syntax)
 
 To support new languages, see:
 
@@ -191,6 +192,10 @@ JAVA						*textobj-function-java*
 
 ------------------------------------------------------------------------------
 VIM SCRIPT					*textobj-function-vim*
+
+- Not only a plain |:function| but also |vspec|-specific syntax such as
+  |:describe|, |:it|, |:before| and |:after| blocks are recognized as
+  functions.  See also: https://github.com/kana/vim-vspec
 
 - Assumption: |:function| and |:endfunction| must be written solely in their
   own lines, as follows:
