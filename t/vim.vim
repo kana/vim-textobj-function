@@ -22,29 +22,31 @@ describe '<Plug>(textobj-function-a)'
     close!
   end
 
-  it 'fails if the cursor is not in a function'
-    Expect Select(1, 'af') ==# ['v', 1, 1]
-    Expect Select(7, 'if') ==# ['v', 7, 7]
-  end
+  describe 'in a plain Vim script'
+    it 'fails if the cursor is not in a function'
+      Expect Select(1, 'af') ==# ['v', 1, 1]
+      Expect Select(7, 'if') ==# ['v', 7, 7]
+    end
 
-  it 'selects the function under the cursor'
-    " At the first line.
-    Expect Select(2, 'af') ==# ['V', 2, 6]
+    it 'selects the function under the cursor'
+      " At the first line.
+      Expect Select(2, 'af') ==# ['V', 2, 6]
 
-    " At a middle line.
-    Expect Select(4, 'af') ==# ['V', 2, 6]
+      " At a middle line.
+      Expect Select(4, 'af') ==# ['V', 2, 6]
 
-    " At the last line.
-    Expect Select(6, 'af') ==# ['V', 2, 6]
-  end
+      " At the last line.
+      Expect Select(6, 'af') ==# ['V', 2, 6]
+    end
 
-  it 'recognizes a function even if it is deeply indented'
-    Expect Select(11, 'af') ==# ['V', 9, 13]
-  end
+    it 'recognizes a function even if it is deeply indented'
+      Expect Select(11, 'af') ==# ['V', 9, 13]
+    end
 
-  it 'can select a function without code'
-    Expect Select(15, 'af') ==# ['V', 15, 16]
-    Expect Select(16, 'af') ==# ['V', 15, 16]
+    it 'can select a function without code'
+      Expect Select(15, 'af') ==# ['V', 15, 16]
+      Expect Select(16, 'af') ==# ['V', 15, 16]
+    end
   end
 
   describe 'in a vspec test script'
@@ -118,29 +120,31 @@ describe '<Plug>(textobj-function-i)'
     close!
   end
 
-  it 'fails if the cursor is not in a function'
-    Expect Select(1, 'if') ==# ['v', 1, 1]
-    Expect Select(7, 'if') ==# ['v', 7, 7]
-  end
+  describe 'in a plain Vim script'
+    it 'fails if the cursor is not in a function'
+      Expect Select(1, 'if') ==# ['v', 1, 1]
+      Expect Select(7, 'if') ==# ['v', 7, 7]
+    end
 
-  it 'selects the content of the function under the cursor'
-    " At the first line.
-    Expect Select(2, 'if') ==# ['V', 3, 5]
+    it 'selects the content of the function under the cursor'
+      " At the first line.
+      Expect Select(2, 'if') ==# ['V', 3, 5]
 
-    " At a middle line.
-    Expect Select(4, 'if') ==# ['V', 3, 5]
+      " At a middle line.
+      Expect Select(4, 'if') ==# ['V', 3, 5]
 
-    " At the last line.
-    Expect Select(6, 'if') ==# ['V', 3, 5]
-  end
+      " At the last line.
+      Expect Select(6, 'if') ==# ['V', 3, 5]
+    end
 
-  it 'recognizes a function even if it is deeply indented'
-    Expect Select(11, 'if') ==# ['V', 10, 12]
-  end
+    it 'recognizes a function even if it is deeply indented'
+      Expect Select(11, 'if') ==# ['V', 10, 12]
+    end
 
-  it 'cannot select a function without code'
-    Expect Select(15, 'if') ==# ['v', 15, 15]
-    Expect Select(16, 'if') ==# ['v', 16, 16]
+    it 'cannot select a function without code'
+      Expect Select(15, 'if') ==# ['v', 15, 15]
+      Expect Select(16, 'if') ==# ['v', 16, 16]
+    end
   end
 
   describe 'in a vspec test script'
