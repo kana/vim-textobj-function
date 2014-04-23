@@ -27,12 +27,18 @@ let s:FUNCTION_PATTERNS = {
 \   'end': '^\s*endf\%[unction]\>',
 \ }
 
+let s:VSPEC_BLOCK_PATTERNS = {
+\   'begin': '\v^\s*<%(describe|it|before|after)>',
+\   'end': '\v^\s*<end>',
+\ }
+
 function! textobj#function#vim#select(object_type)
   return s:select_{a:object_type}()
 endfunction
 
 function! s:select_a()
-  return s:select_a_of(s:FUNCTION_PATTERNS)
+  let r = s:select_a_of(s:FUNCTION_PATTERNS)
+  return r is 0 ? s:select_a_of(s:VSPEC_BLOCK_PATTERNS) : r
 endfunction
 
 function! s:select_a_of(patterns)
