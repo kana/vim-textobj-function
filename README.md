@@ -9,8 +9,8 @@ vim-textobj-function is a Vim plugin to **text objects for functions**.  You can
 directly target a function (`af`) or the code inside a function (`if`).
 For example,
 
-* `daf` to **D**elete **A** **F**unction, and
-* `vif` to **V**isually select the code **I**nside a **F**unction.
+* `daf` to <strong>D</strong>elete <strong>A</strong> <strong>F</strong>unction, and
+* `vif` to <strong>V</strong>isually select the code <strong>I</strong>nside a <strong>F</strong>unction.
 
 The syntax of a "function" is varied for each language.  So that you have to
 tell the syntax of a function to vim-textobj-function before editing.  By
