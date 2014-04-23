@@ -14,3 +14,36 @@ endfunction
 
 function! Baz()
 endfunction
+
+describe 'outer'
+  describe 'inner 1'
+    before
+      new
+      function! b:.foo()
+        ...
+      endfunction
+    end
+
+    after
+      close!
+    end
+
+    it '...'
+      ...
+    end
+  end
+
+  describe 'inner 2'
+    describe '...'
+    end
+
+    before
+    end
+
+    after
+    end
+
+    it '...'
+    end
+  end
+end
