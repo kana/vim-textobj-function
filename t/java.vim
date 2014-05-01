@@ -12,92 +12,44 @@ describe '<Plug>(textobj-function-a)'
   end
 
   it 'selects the next method if there is no method under the cursor'
-    normal! 2G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 4
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(2, 'af') ==# ['V', 4, 9]
   end
 
   it 'selects the method under the cursor'
     " At the first line.
-    normal! 4G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 4
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(4, 'af') ==# ['V', 4, 9]
 
     " At a middle line.
-    normal! 7G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 4
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(7, 'af') ==# ['V', 4, 9]
 
     " At the last line.
-    normal! 9G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 4
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(9, 'af') ==# ['V', 4, 9]
   end
 
   it 'ignores non-method blocks'
-    normal! 17G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 11
-    Expect line("'>") == 21
-    Expect visualmode() ==# 'V'
+    Expect Select(17, 'af') ==# ['V', 11, 21]
   end
 
   it 'recognizes methods with one-line prototypes'
-    normal! 26G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 23
-    Expect line("'>") == 28
-    Expect visualmode() ==# 'V'
+    Expect Select(26, 'af') ==# ['V', 23, 28]
 
-    normal! 32G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 30
-    Expect line("'>") == 34
-    Expect visualmode() ==# 'V'
+    Expect Select(32, 'af') ==# ['V', 30, 34]
   end
 
   it 'recognizes methods with argument lists over multiple lines'
-    normal! 40G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 36
-    Expect line("'>") == 42
-    Expect visualmode() ==# 'V'
+    Expect Select(40, 'af') ==# ['V', 36, 42]
 
-    normal! 47G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 44
-    Expect line("'>") == 49
-    Expect visualmode() ==# 'V'
+    Expect Select(47, 'af') ==# ['V', 44, 49]
   end
 
   it 'recognizes methods with argument lists placed after method name lines'
-    normal! 57G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 51
-    Expect line("'>") == 59
-    Expect visualmode() ==# 'V'
+    Expect Select(57, 'af') ==# ['V', 51, 59]
 
-    normal! 66G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 61
-    Expect line("'>") == 68
-    Expect visualmode() ==# 'V'
+    Expect Select(66, 'af') ==# ['V', 61, 68]
   end
 
   it 'fails if there is no appropriate method'
-    normal! 76G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 76
-    Expect line("'>") == 76
-    Expect visualmode() ==# 'v'
+    Expect Select(76, 'af') ==# ['v', 76, 76]
   end
 end
 
@@ -113,105 +65,49 @@ describe '<Plug>(textobj-function-i)'
   end
 
   it 'selects the next method if there is no method under the cursor'
-    normal! 2G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(2, 'if') ==# ['V', 6, 8]
   end
 
   it 'selects the method under the cursor'
     " At the first line.
-    normal! 4G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(4, 'if') ==# ['V', 6, 8]
 
     " At a middle line.
-    normal! 7G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(7, 'if') ==# ['V', 6, 8]
 
     " At the last line.
-    normal! 9G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(9, 'if') ==# ['V', 6, 8]
   end
 
   it 'ignores non-method blocks'
-    normal! 17G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 13
-    Expect line("'>") == 20
-    Expect visualmode() ==# 'V'
+    Expect Select(17, 'if') ==# ['V', 13, 20]
   end
 
   it 'recognizes methods with one-line prototypes'
-    normal! 26G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 25
-    Expect line("'>") == 27
-    Expect visualmode() ==# 'V'
+    Expect Select(26, 'if') ==# ['V', 25, 27]
 
-    normal! 32G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 31
-    Expect line("'>") == 33
-    Expect visualmode() ==# 'V'
+    Expect Select(32, 'if') ==# ['V', 31, 33]
   end
 
   it 'recognizes methods with argument lists over multiple lines'
-    normal! 40G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 39
-    Expect line("'>") == 41
-    Expect visualmode() ==# 'V'
+    Expect Select(40, 'if') ==# ['V', 39, 41]
 
-    normal! 47G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 46
-    Expect line("'>") == 48
-    Expect visualmode() ==# 'V'
+    Expect Select(47, 'if') ==# ['V', 46, 48]
   end
 
   it 'recognizes methods with argument lists placed after method name lines'
-    normal! 57G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 56
-    Expect line("'>") == 58
-    Expect visualmode() ==# 'V'
+    Expect Select(57, 'if') ==# ['V', 56, 58]
 
-    normal! 66G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 65
-    Expect line("'>") == 67
-    Expect visualmode() ==# 'V'
+    Expect Select(66, 'if') ==# ['V', 65, 67]
   end
 
   it 'fails if the target method does not contain any code'
-    normal! 70G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 70
-    Expect line("'>") == 70
-    Expect visualmode() ==# 'v'
+    Expect Select(70, 'if') ==# ['v', 70, 70]
 
-    normal! 74G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 74
-    Expect line("'>") == 74
-    Expect visualmode() ==# 'v'
+    Expect Select(74, 'if') ==# ['v', 74, 74]
   end
 
   it 'fails if there is no appropriate method'
-    normal! 76G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 76
-    Expect line("'>") == 76
-    Expect visualmode() ==# 'v'
+    Expect Select(76, 'if') ==# ['v', 76, 76]
   end
 end
