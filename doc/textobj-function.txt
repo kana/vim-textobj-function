@@ -92,8 +92,8 @@ mode:
 
 	{lhs}	{rhs}				~
 	-----	---------------------------	~
-	*af*	<Plug>(textobj-function-a)
-	*if*	<Plug>(textobj-function-i)
+	*af*	|<Plug>(textobj-function-a)|
+	*if*	|<Plug>(textobj-function-i)|
 
 				  *g:textobj_function_no_default_key_mappings*
 If you don't need these key mappings, define a global variable
