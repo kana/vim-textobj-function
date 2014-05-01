@@ -47,6 +47,13 @@ For example,
 - `daf` to Delete A Function, and
 - `vif` to Visually select the code Inside a Function.
 
+You can also use |aF| to target a function with leading or trailing blank
+lines like |ap|, or use |iF| to target just a function like |ip|.
+For example,
+
+- `yaF` to Yank A Function with leading or trailing blank lines, and
+- `viF` to visually select a function without leading or trailing blank lines.
+
 The syntax of a "function" is varied for each language.  So that you have to
 tell the syntax of a function to textobj-function before editing.  By default,
 the following languages are supported:
@@ -94,6 +101,8 @@ mode:
 	-----	---------------------------	~
 	*af*	|<Plug>(textobj-function-a)|
 	*if*	|<Plug>(textobj-function-i)|
+	*aF*	|<Plug>(textobj-function-A)|
+	*iF*	|<Plug>(textobj-function-I)|
 
 				  *g:textobj_function_no_default_key_mappings*
 If you don't need these key mappings, define a global variable
@@ -126,6 +135,15 @@ modes.
 			but select the body of a function, other parts of
 			a function are not included e.g. its name, its
 			arguments and so forth).
+
+<Plug>(textobj-function-A)			*<Plug>(textobj-function-A)*
+			Similar to |<Plug>(textobj-function-a)|, but select
+			also the leading or trailing blank lines like |ap|.
+
+<Plug>(textobj-function-I)			*<Plug>(textobj-function-I)*
+			Same as |<Plug>(textobj-function-a)|.
+			While |<Plug>(textobj-function-A)| is like |ap|,
+			<Plug>(textobj-function-I) is like |ip|.
 
 
 
