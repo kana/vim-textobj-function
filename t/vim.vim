@@ -25,7 +25,7 @@ describe '<Plug>(textobj-function-a)'
   describe 'in a plain Vim script'
     it 'fails if the cursor is not in a function'
       Expect Select(1, 'af') ==# ['v', 1, 1]
-      Expect Select(7, 'if') ==# ['v', 7, 7]
+      Expect Select(7, 'af') ==# ['v', 7, 7]
     end
 
     it 'selects the function under the cursor'
