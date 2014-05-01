@@ -1,21 +1,10 @@
-filetype plugin on
-runtime! plugin/textobj/function.vim
-
-function! s:paste_vim_code()
-  read t/fixtures/sample.vim
-endfunction
-
-function! Select(line_number, object)
-  call cursor(a:line_number, 1)
-  execute 'normal' 'v'.a:object."\<Esc>"
-  return [visualmode(), line("'<"), line("'>")]
-endfunction
+source t/helpers/setup.vim
 
 describe '<Plug>(textobj-function-a)'
   before
     new
     setfiletype vim
-    call s:paste_vim_code()
+    call PasteSampleCode('vim')
   end
 
   after
@@ -113,7 +102,7 @@ describe '<Plug>(textobj-function-i)'
   before
     new
     setfiletype vim
-    call s:paste_vim_code()
+    call PasteSampleCode('vim')
   end
 
   after
