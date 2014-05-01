@@ -1,15 +1,10 @@
-filetype plugin on
-runtime! plugin/textobj/function.vim
-
-function! s:paste_java_code()
-  read t/fixtures/sample.java
-endfunction
+source t/helpers/setup.vim
 
 describe '<Plug>(textobj-function-a)'
   before
     new
     setfiletype java
-    call s:paste_java_code()
+    call PasteSampleCode('java')
   end
 
   after
@@ -110,7 +105,7 @@ describe '<Plug>(textobj-function-i)'
   before
     new
     setfiletype java
-    call s:paste_java_code()
+    call PasteSampleCode('java')
   end
 
   after
