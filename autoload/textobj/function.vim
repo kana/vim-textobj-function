@@ -36,6 +36,42 @@ function! textobj#function#select_i()
   return s:select('i')
 endfunction
 
+function! textobj#function#select_A()
+  let oln = line('.')
+
+  let r = s:select('a')
+  if r is 0
+    return r
+  endif
+
+  let [_, bp, ep] = r
+  let bln = bp[1]
+  let eln = ep[1]
+
+  call cursor(bln, 1)
+  let lln = search('\v(.\n\zs\n+.*%#)|(%^\n\n+.*%#)', 'bcW')
+  let lp = getpos('.')
+
+  call cursor(eln, 1)
+  let tln = search('\v%#.*\n\n*\zs\n', 'cW')
+  let tp = getpos('.')
+
+  if lln != 0 && tln != 0
+    if oln < bln
+      return ['V', lp, ep]
+    else
+      return ['V', bp, tp]
+    endif
+  endif
+  if lln != 0
+    return ['V', lp, ep]
+  endif
+  if tln != 0
+    return ['V', bp, tp]
+  endif
+  return r
+endfunction
+
 function! textobj#function#select_I()
   return s:select('a')
 endfunction
