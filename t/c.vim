@@ -1,15 +1,10 @@
-filetype plugin on
-runtime! plugin/textobj/function.vim
-
-function! s:paste_c_code()
-  read t/fixtures/sample.c
-endfunction
+source t/helpers/setup.vim
 
 describe '<Plug>(textobj-function-a)'
   before
     new
     setfiletype c
-    call s:paste_c_code()
+    call PasteSampleCode('c')
   end
 
   after
@@ -76,7 +71,7 @@ describe '<Plug>(textobj-function-i)'
   before
     new
     setfiletype c
-    call s:paste_c_code()
+    call PasteSampleCode('c')
   end
 
   after
