@@ -1,15 +1,10 @@
-filetype plugin on
-runtime! plugin/textobj/function.vim
-
-function! s:paste_c_code()
-  read t/fixtures/sample.c
-endfunction
+source t/helpers/setup.vim
 
 describe '<Plug>(textobj-function-a)'
   before
     new
     setfiletype c
-    call s:paste_c_code()
+    call PasteSampleCode('c')
   end
 
   after
@@ -17,58 +12,30 @@ describe '<Plug>(textobj-function-a)'
   end
 
   it 'selects the next function if there is no function under the cursor'
-    normal! 1G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 3
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(1, 'af') ==# ['V', 3, 9]
   end
 
   it 'selects the function under the cursor'
     " At the first line.
-    normal! 3G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 3
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(3, 'af') ==# ['V', 3, 9]
 
     " At a middle line.
-    normal! 7G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 3
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(7, 'af') ==# ['V', 3, 9]
 
     " At the last line.
-    normal! 9G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 3
-    Expect line("'>") == 9
-    Expect visualmode() ==# 'V'
+    Expect Select(9, 'af') ==# ['V', 3, 9]
   end
 
   it 'does not recognize a function if it is deeply indented'
-    normal! 17G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 23
-    Expect line("'>") == 29
-    Expect visualmode() ==# 'V'
+    Expect Select(17, 'af') ==# ['V', 23, 29]
   end
 
   it 'recognizes functinos with alternative brace style'
     " With a one-line prototype
-    normal! 34G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 31
-    Expect line("'>") == 36
-    Expect visualmode() ==# 'V'
+    Expect Select(34, 'af') ==# ['V', 31, 36]
 
     " With a more complex prototype
-    normal! 44G
-    execute 'normal' "vaf\<Esc>"
-    Expect line("'<") == 38
-    Expect line("'>") == 46
-    Expect visualmode() ==# 'V'
+    Expect Select(44, 'af') ==# ['V', 38, 46]
   end
 end
 
@@ -76,7 +43,7 @@ describe '<Plug>(textobj-function-i)'
   before
     new
     setfiletype c
-    call s:paste_c_code()
+    call PasteSampleCode('c')
   end
 
   after
@@ -84,57 +51,107 @@ describe '<Plug>(textobj-function-i)'
   end
 
   it 'selects the content of the next function if the cursor is not on one'
-    normal! 1G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(1, 'if') ==# ['V', 6, 8]
   end
 
   it 'selects the content of the function under the cursor'
     " At the first line.
-    normal! 3G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(3, 'if') ==# ['V', 6, 8]
 
     " At a middle line.
-    normal! 7G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(7, 'if') ==# ['V', 6, 8]
 
     " At the last line.
-    normal! 9G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 6
-    Expect line("'>") == 8
-    Expect visualmode() ==# 'V'
+    Expect Select(9, 'if') ==# ['V', 6, 8]
   end
 
   it 'does not recognize a function if it is deeply indented'
-    normal! 17G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 26
-    Expect line("'>") == 28
-    Expect visualmode() ==# 'V'
+    Expect Select(17, 'if') ==# ['V', 26, 28]
   end
 
   it 'recognizes functinos with alternative brace style'
     " With a one-line prototype
-    normal! 34G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 33
-    Expect line("'>") == 35
-    Expect visualmode() ==# 'V'
+    Expect Select(34, 'if') ==# ['V', 33, 35]
 
     " With a more complex prototype
-    normal! 44G
-    execute 'normal' "vif\<Esc>"
-    Expect line("'<") == 43
-    Expect line("'>") == 45
-    Expect visualmode() ==# 'V'
+    Expect Select(44, 'if') ==# ['V', 43, 45]
+  end
+end
+
+describe '<Plug>(textobj-function-A)'
+  before
+    new
+    setfiletype c
+    call PasteSampleCode('c')
+  end
+
+  after
+    close!
+  end
+
+  it 'selects the next function if there is no function under the cursor'
+    Expect Select(1, 'aF') ==# ['V', 2, 9]
+  end
+
+  it 'selects the function under the cursor'
+    " At the first line.
+    Expect Select(3, 'aF') ==# ['V', 3, 10]
+
+    " At a middle line.
+    Expect Select(7, 'aF') ==# ['V', 3, 10]
+
+    " At the last line.
+    Expect Select(9, 'aF') ==# ['V', 3, 10]
+  end
+
+  it 'does not recognize a function if it is deeply indented'
+    Expect Select(17, 'aF') ==# ['V', 22, 29]
+  end
+
+  it 'recognizes functinos with alternative brace style'
+    " With a one-line prototype
+    Expect Select(34, 'aF') ==# ['V', 31, 37]
+
+    " With a more complex prototype
+    Expect Select(44, 'aF') ==# ['V', 37, 46]
+  end
+end
+
+describe '<Plug>(textobj-function-I)'
+  before
+    new
+    setfiletype c
+    call PasteSampleCode('c')
+  end
+
+  after
+    close!
+  end
+
+  it 'selects the next function if there is no function under the cursor'
+    Expect Select(1, 'iF') ==# ['V', 3, 9]
+  end
+
+  it 'selects the function under the cursor'
+    " At the first line.
+    Expect Select(3, 'iF') ==# ['V', 3, 9]
+
+    " At a middle line.
+    Expect Select(7, 'iF') ==# ['V', 3, 9]
+
+    " At the last line.
+    Expect Select(9, 'iF') ==# ['V', 3, 9]
+  end
+
+  it 'does not recognize a function if it is deeply indented'
+    Expect Select(17, 'iF') ==# ['V', 23, 29]
+  end
+
+  it 'recognizes functinos with alternative brace style'
+    " With a one-line prototype
+    Expect Select(34, 'iF') ==# ['V', 31, 36]
+
+    " With a more complex prototype
+    Expect Select(44, 'iF') ==# ['V', 38, 46]
   end
 end
