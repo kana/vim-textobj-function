@@ -1,6 +1,6 @@
 *textobj-function.txt*	Text objects for functions
 
-Version 0.3.0
+Version 0.4.0
 Script ID: 2619
 Copyright (C) 2007-2014 Kana Natsuno <http://whileimautomaton.net/>
 License: MIT license  {{{
@@ -296,6 +296,9 @@ KNOWN ISSUES				       *textobj-function-known-issues*
 
 ==============================================================================
 CHANGELOG					*textobj-function-changelog*
+
+0.4.0	2014-05-03T17:48:27+09:00	    *textobj-function-changelog-0.4.0*
+	- Add a variant of function text objects |aF| and |iF|.
 
 0.3.0	2014-04-23T22:40:01+09:00	    *textobj-function-changelog-0.3.0*
 	- Vim script: Support also |vspec|-specific syntax.
