@@ -34,6 +34,9 @@ function! s:select_a()
   normal! %
   call search(')', 'bc')
   normal! %0k
+  if substitute(getline('.'), '^\s*$', '', '') == ''
+    normal! j
+  endif
   let b = getpos('.')
 
   if 1 < e[1] - b[1]  " is there some code?
